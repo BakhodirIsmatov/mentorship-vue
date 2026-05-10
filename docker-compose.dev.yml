@@ -1,0 +1,32 @@
+services:
+  ustoz-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: ustoz-landing-dev
+    image: ustoz-landing:dev
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: development
+      HOST: 0.0.0.0
+      PORT: 3000
+      # macOS / Windows Docker Desktop'da inotify mounted volume'da
+      # ishonchsiz; polling bilan har bir o'zgarishni doim sezamiz.
+      CHOKIDAR_USEPOLLING: "true"
+      CHOKIDAR_INTERVAL: "300"
+      WATCHPACK_POLLING: "true"
+    volumes:
+      # Loyiha source'ini host'dan konteynerga bog'lash — har bir saqlash
+      # darhol Nuxt HMR'ni ishga tushiradi.
+      - ./:/app
+      # Anonymous volume'lar host-mount'dan keyin "ustiga" keladi va
+      # konteyner ichidagi node_modules/.nuxt/.output'ni saqlaydi
+      # (host'da bo'lmasligi yoki muhim bo'lmasligi uchun).
+      - /app/node_modules
+      - /app/.nuxt
+      - /app/.output
+    # `tty + stdin_open` Nuxt CLI rang/spinner'larini to'g'ri ko'rsatadi
+    tty: true
+    stdin_open: true
+    restart: unless-stopped

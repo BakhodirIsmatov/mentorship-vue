@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ustoz — Mentor sertifikat platformasi</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue: #2563EB;
+    --blue-light: #3B82F6;
+    --blue-dark: #1D4ED8;
+    --orange: #F97316;
+    --orange-light: #FB923C;
+    --bg: #F0F4FF;
+    --white: #FFFFFF;
+    --text: #0F172A;
+    --muted: #64748B;
+    --card-bg: #FFFFFF;
+    --border: #E2E8F0;
+    --green: #22C55E;
+    --purple: #8B5CF6;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 40px;
+    padding: 80px 80px 60px;
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(135deg, #EEF2FF 0%, #F0F9FF 50%, #F5F0FF 100%);
+  }
+
+  /* decorative blobs */
+  .hero::before {
+    content: '';
+    position: absolute;
+    width: 600px; height: 600px;
+    background: radial-gradient(circle, rgba(37,99,235,0.08) 0%, transparent 70%);
+    top: -100px; right: 200px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(249,115,22,0.07) 0%, transparent 70%);
+    bottom: -80px; left: 100px;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  /* ── LEFT CONTENT ── */
+  .hero-left {
+    position: relative;
+    z-index: 2;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    margin-bottom: 32px;
+    box-shadow: 0 2px 8px rgba(37,99,235,0.12);
+    animation: fadeUp 0.6s ease both;
+  }
+  .badge-dot {
+    width: 8px; height: 8px;
+    background: var(--orange);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%,100% { transform: scale(1); opacity:1; }
+    50% { transform: scale(1.4); opacity:0.7; }
+  }
+
+  .hero-title {
+    font-family: 'Sora', sans-serif;
+    font-size: clamp(36px, 4vw, 56px);
+    font-weight: 800;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+  .hero-title .accent {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-title .accent2 {
+    background: linear-gradient(135deg, var(--orange) 0%, #EC4899 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-desc {
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 480px;
+    margin-bottom: 40px;
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  .hero-actions {
+    display: flex;
+    gap: 16px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-bottom: 48px;
+    animation: fadeUp 0.6s 0.3s ease both;
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, var(--blue) 0%, var(--blue-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 14px;
+    padding: 16px 32px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 24px rgba(37,99,235,0.35);
+    transition: transform 0.2s, box-shadow 0.2s;
+    text-decoration: none;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(37,99,235,0.45);
+  }
+
+  .btn-secondary {
+    background: white;
+    color: var(--text);
+    border: 1.5px solid var(--border);
+    border-radius: 14px;
+    padding: 15px 28px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    text-decoration: none;
+  }
+  .btn-secondary:hover {
+    border-color: var(--blue);
+    color: var(--blue);
+    background: #EEF2FF;
+  }
+
+  .hero-stats {
+    display: flex;
+    gap: 32px;
+    animation: fadeUp 0.6s 0.4s ease both;
+  }
+  .stat { display: flex; flex-direction: column; gap: 4px; }
+  .stat-num {
+    font-family: 'Sora', sans-serif;
+    font-size: 26px;
+    font-weight: 800;
+    color: var(--text);
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .stat-divider {
+    width: 1px;
+    background: var(--border);
+    align-self: stretch;
+    margin: 4px 0;
+  }
+
+  /* ── RIGHT: PHONE CAROUSEL ── */
+  .hero-right {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 680px;
+  }
+
+  .phones-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* phone mockup */
+  .phone {
+    position: absolute;
+    width: 240px;
+    height: 490px;
+    background: #0F172A;
+    border-radius: 38px;
+    padding: 12px;
+    box-shadow:
+      0 40px 80px rgba(0,0,0,0.22),
+      0 0 0 1px rgba(255,255,255,0.08),
+      inset 0 0 0 1px rgba(255,255,255,0.05);
+    transition: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transform-origin: center bottom;
+  }
+
+  .phone-inner {
+    width: 100%;
+    height: 100%;
+    background: #F8FAFC;
+    border-radius: 28px;
+    overflow: hidden;
+    position: relative;
+  }
+
+  /* camera notch */
+  .phone::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 70px; height: 8px;
+    background: #0F172A;
+    border-radius: 4px;
+    z-index: 10;
+  }
+
+  /* Positions for 5 phones */
+  .phone-0 { transform: translateX(-240px) translateY(30px) rotate(-8deg) scale(0.82); z-index: 1; opacity: 0.6; }
+  .phone-1 { transform: translateX(-120px) translateY(10px) rotate(-4deg) scale(0.91); z-index: 2; opacity: 0.8; }
+  .phone-2 { transform: translateX(0) translateY(0) rotate(0deg) scale(1); z-index: 5; opacity: 1; }
+  .phone-3 { transform: translateX(120px) translateY(10px) rotate(4deg) scale(0.91); z-index: 2; opacity: 0.8; }
+  .phone-4 { transform: translateX(240px) translateY(30px) rotate(8deg) scale(0.82); z-index: 1; opacity: 0.6; }
+
+  /* active phone glow */
+  .phone-2 {
+    box-shadow:
+      0 60px 100px rgba(37,99,235,0.25),
+      0 20px 50px rgba(0,0,0,0.2),
+      0 0 0 1px rgba(255,255,255,0.12),
+      inset 0 0 0 1px rgba(255,255,255,0.08);
+  }
+
+  /* ── SCREEN CONTENT ── */
+
+  /* shared screen padding */
+  .screen { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; background: #F8FAFC; position: relative; }
+
+  /* logo header */
+  .s-logo-area {
+    display: flex; flex-direction: column; align-items: center;
+    padding-top: 36px; padding-bottom: 20px;
+  }
+  .s-logo-circle {
+    width: 54px; height: 54px;
+    background: linear-gradient(135deg, #2563EB, #F97316);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; margin-bottom: 10px;
+    box-shadow: 0 4px 14px rgba(37,99,235,0.35);
+  }
+  .s-brand { font-family: 'Sora', sans-serif; font-weight: 700; font-size: 13px; color: #0F172A; }
+
+  /* Screen 1: Auth */
+  .sc1 { padding: 0 18px; }
+  .sc1 .s-title { font-family: 'Sora', sans-serif; font-size: 18px; font-weight: 800; color: #0F172A; margin-bottom: 6px; text-align: center; }
+  .sc1 .s-sub { font-size: 10px; color: #94A3B8; text-align: center; margin-bottom: 24px; line-height: 1.5; }
+  .sc1 .s-input {
+    width: 100%; background: white; border: 1.5px solid #E2E8F0;
+    border-radius: 12px; padding: 10px 12px;
+    font-size: 11px; color: #64748B;
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 12px; box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  }
+  .flag { font-size: 14px; }
+  .s-input-phone { flex: 1; color: #94A3B8; font-size: 10px; }
+  .s-btn {
+    width: 100%; background: #2563EB; color: white;
+    border: none; border-radius: 12px; padding: 12px;
+    font-size: 12px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif;
+    cursor: pointer; margin-bottom: 16px;
+  }
+  .s-terms { font-size: 8.5px; color: #94A3B8; text-align: center; line-height: 1.5; padding: 0 8px; }
+  .s-terms a { color: #2563EB; text-decoration: none; }
+
+  /* Screen 2: OTP */
+  .sc2 { padding: 0 14px; }
+  .sc2 .otp-desc { font-size: 9.5px; color: #64748B; text-align: center; margin-bottom: 20px; line-height: 1.5; }
+  .otp-boxes { display: flex; gap: 6px; justify-content: center; margin-bottom: 14px; }
+  .otp-box {
+    width: 30px; height: 36px; border: 1.5px solid #E2E8F0;
+    border-radius: 8px; background: white;
+  }
+  .otp-box.active { border-color: #2563EB; box-shadow: 0 0 0 2px rgba(37,99,235,0.15); }
+  .otp-timer { font-size: 9px; color: #64748B; text-align: center; margin-bottom: 20px; }
+
+  /* Screen 3: Create Request */
+  .sc3 { background: white; }
+  .sc3-header { width: 100%; padding: 16px 14px 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #F1F5F9; }
+  .sc3-back { font-size: 14px; color: #2563EB; cursor: pointer; }
+  .sc3-htitle { font-size: 12px; font-weight: 700; color: #0F172A; }
+  .sc3-body { padding: 14px; width: 100%; }
+  .sc3-field { margin-bottom: 12px; }
+  .sc3-label { font-size: 9px; color: #94A3B8; margin-bottom: 4px; font-weight: 500; }
+  .sc3-input {
+    width: 100%; background: #F8FAFC; border: 1.5px solid #E2E8F0;
+    border-radius: 10px; padding: 9px 11px;
+    font-size: 11px; font-weight: 600; color: #0F172A;
+  }
+  .sc3-checkbox { display: flex; align-items: center; gap: 8px; margin: 14px 0; }
+  .sc3-check { width: 16px; height: 16px; background: #2563EB; border-radius: 4px; display: flex; align-items: center; justify-content: center; color: white; font-size: 9px; flex-shrink: 0; }
+  .sc3-check-label { font-size: 9px; color: #64748B; line-height: 1.4; }
+
+  /* Screen 4: Home */
+  .sc4 { padding: 0; }
+  .sc4-header { width: 100%; background: white; padding: 14px 14px 12px; }
+  .sc4-welcome { font-size: 14px; font-weight: 800; color: #0F172A; font-family: 'Sora', sans-serif; }
+  .sc4-sub { font-size: 9px; color: #94A3B8; margin-top: 2px; }
+  .sc4-cta {
+    margin: 10px 10px 0;
+    background: linear-gradient(135deg, #2563EB, #4F46E5);
+    border-radius: 12px; padding: 12px; display: flex; align-items: center; gap: 10px;
+    color: white;
+  }
+  .sc4-cta-icon { width: 28px; height: 28px; background: rgba(255,255,255,0.2); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; }
+  .sc4-cta-text .t1 { font-size: 10px; font-weight: 700; margin-bottom: 2px; }
+  .sc4-cta-text .t2 { font-size: 8px; opacity: 0.8; }
+  .sc4-cta-arr { margin-left: auto; font-size: 12px; opacity: 0.7; }
+  .sc4-section-title { font-size: 11px; font-weight: 700; color: #0F172A; padding: 10px 12px 6px; }
+  .sc4-card {
+    margin: 0 10px; background: white; border-radius: 12px;
+    padding: 11px; border: 1px solid #F1F5F9;
+    box-shadow: 0 1px 6px rgba(0,0,0,0.06);
+  }
+  .sc4-card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
+  .sc4-num { font-size: 12px; font-weight: 700; color: #0F172A; display: flex; align-items: center; gap: 4px; }
+  .sc4-badge { background: #F0F9FF; color: #0369A1; font-size: 8px; font-weight: 600; border-radius: 6px; padding: 2px 7px; }
+  .sc4-amount { font-size: 18px; font-weight: 800; color: #2563EB; font-family: 'Sora', sans-serif; margin-bottom: 6px; }
+  .sc4-mentor-info { font-size: 9px; color: #0F172A; font-weight: 600; margin-bottom: 2px; }
+  .sc4-mentor-phone { font-size: 8.5px; color: #64748B; }
+  .sc4-status { display: flex; align-items: center; gap: 4px; margin: 4px 0; }
+  .sc4-status-dot { width: 6px; height: 6px; border-radius: 50%; background: #F97316; }
+  .sc4-status-text { font-size: 8.5px; color: #F97316; font-weight: 600; }
+  .sc4-msg { background: #F8FAFC; border-radius: 8px; padding: 7px 9px; font-size: 8.5px; color: #64748B; margin: 8px 0; line-height: 1.4; }
+  .sc4-pay-btn {
+    width: 100%; background: linear-gradient(135deg, #F97316, #FB923C);
+    color: white; border: none; border-radius: 10px; padding: 10px;
+    font-size: 11px; font-weight: 700; font-family: 'Plus Jakarta Sans', sans-serif;
+    display: flex; align-items: center; justify-content: center; gap: 6px;
+  }
+  .sc4-tabbar { 
+    position: absolute; bottom: 0; left: 0; right: 0;
+    background: white; border-top: 1px solid #F1F5F9;
+    display: flex; justify-content: space-around; padding: 8px 0 10px;
+  }
+  .tab-item { display: flex; flex-direction: column; align-items: center; gap: 3px; font-size: 7.5px; color: #94A3B8; cursor: pointer; }
+  .tab-item.active { color: #2563EB; }
+  .tab-icon { font-size: 14px; }
+
+  /* Screen 5: Payment */
+  .sc5 { background: white; padding: 0; }
+  .sc5-header { width: 100%; padding: 14px 14px 10px; display: flex; align-items: center; gap: 8px; border-bottom: 1px solid #F1F5F9; }
+  .sc5-htitle { font-size: 13px; font-weight: 700; color: #0F172A; }
+  .sc5-body { padding: 12px; width: 100%; }
+  .sc5-card {
+    background: linear-gradient(135deg, #1E40AF 0%, #3B82F6 100%);
+    border-radius: 14px; padding: 16px; margin-bottom: 16px;
+    color: white; position: relative; overflow: hidden;
+  }
+  .sc5-card::before {
+    content: '';
+    position: absolute;
+    top: -20px; right: -20px;
+    width: 80px; height: 80px;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+  }
+  .sc5-card-label { font-size: 8px; opacity: 0.7; margin-bottom: 10px; }
+  .sc5-card-num { font-size: 11px; letter-spacing: 2px; margin-bottom: 14px; font-weight: 600; }
+  .sc5-card-row { display: flex; justify-content: space-between; align-items: flex-end; }
+  .sc5-card-exp { font-size: 8px; opacity: 0.7; }
+  .sc5-card-exp span { font-size: 10px; font-weight: 700; opacity: 1; display: block; }
+  .sc5-card-id { font-size: 9px; opacity: 0.8; font-weight: 600; }
+  .sc5-card-sum { font-size: 8px; opacity: 0.7; }
+  .sc5-card-sum span { font-size: 13px; font-weight: 800; opacity: 1; display: block; }
+  .sc5-input {
+    width: 100%; background: #F8FAFC; border: 1.5px solid #E2E8F0;
+    border-radius: 10px; padding: 10px 11px;
+    font-size: 10px; color: #94A3B8; margin-bottom: 10px;
+  }
+  .sc5-input.focused { border-color: #2563EB; }
+
+  /* ── DOTS NAV ── */
+  .phones-nav {
+    position: absolute;
+    bottom: -28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+  }
+  .nav-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: #CBD5E1;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot.active {
+    background: var(--blue);
+    width: 24px;
+    border-radius: 4px;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    .hero {
+      grid-template-columns: 1fr;
+      padding: 60px 32px 80px;
+      text-align: center;
+    }
+    .hero-desc { margin: 0 auto 32px; }
+    .hero-actions { justify-content: center; }
+    .hero-stats { justify-content: center; }
+    .hero-right { height: 560px; margin-top: 20px; }
+    .phone { width: 200px; height: 410px; }
+    .phone-0 { transform: translateX(-200px) translateY(30px) rotate(-8deg) scale(0.82); }
+    .phone-1 { transform: translateX(-100px) translateY(10px) rotate(-4deg) scale(0.91); }
+    .phone-3 { transform: translateX(100px) translateY(10px) rotate(4deg) scale(0.91); }
+    .phone-4 { transform: translateX(200px) translateY(30px) rotate(8deg) scale(0.82); }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- LEFT -->
+  <div class="hero-left">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      O'zbekistondagi birinchi sertifikat platformasi
+    </div>
+
+    <h1 class="hero-title">
+      O'z <span class="accent">mahoratingizni</span><br>
+      rasmiy <span class="accent2">sertifikatga</span><br>
+      aylantiring
+    </h1>
+
+    <p class="hero-desc">
+      Ustoz — an'anaviy ustoz-shogird tizimini raqamlashtiruvchi platforma. 
+      Ustozingizdan sertifikat oling, ish topishda raqobatbardosh bo'ling.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#" class="btn-primary">
+        📱 Ilovani yuklab olish
+      </a>
+      <a href="#" class="btn-secondary">
+        ▶ Qanday ishlaydi?
+      </a>
+    </div>
+
+    <div class="hero-stats">
+      <div class="stat">
+        <span class="stat-num">1000+</span>
+        <span class="stat-label">Ustoz</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">5000+</span>
+        <span class="stat-label">Sertifikat</span>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat">
+        <span class="stat-num">50+</span>
+        <span class="stat-label">Kasb yo'nalishi</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: 5 phones -->
+  <div class="hero-right">
+    <div class="phones-wrapper" id="phonesWrapper">
+
+      <!-- Phone 0: Screen 1 (Auth) -->
+      <div class="phone phone-0" id="phone-0">
+        <div class="phone-inner">
+          <div class="screen sc1">
+            <div class="s-logo-area">
+              <div class="s-logo-circle">🤝</div>
+              <div class="s-brand">Global Mentorship Platform</div>
+            </div>
+            <div class="sc1" style="width:100%">
+              <div class="s-title">Ro'yxatdan o'tish</div>
+              <div class="s-sub">Ilovani qaysi tilda ishlatishni xohlaysiz</div>
+              <div class="s-input">
+                <span class="flag">🇺🇿</span>
+                <span style="font-size:9px;color:#64748B;font-weight:600">+998</span>
+                <span style="font-size:9px;color:#CBD5E1;margin:0 2px">|</span>
+                <span class="s-input-phone">Telefon raqamingiz</span>
+              </div>
+              <button class="s-btn">SMS kod yuborish</button>
+              <div class="s-terms">Ro'yxatdan o'tish orqali, <a href="#">Foydalanish shartlari va Maxfiylik siyosatimizga</a> rozilik bildirasiz</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone 1: Screen 2 (OTP) -->
+      <div class="phone phone-1" id="phone-1">
+        <div class="phone-inner">
+          <div class="screen sc2">
+            <div class="s-logo-area">
+              <div class="s-logo-circle">🤝</div>
+              <div class="s-brand">Global Mentorship Platform</div>
+            </div>
+            <div class="sc2" style="width:100%;padding:0 14px">
+              <div class="s-title" style="font-family:'Sora',sans-serif;font-size:17px;font-weight:800;color:#0F172A;margin-bottom:8px;text-align:center">Kodni tasdiqlash</div>
+              <div class="otp-desc">+998888939402 raqamiga 6 xonali<br>tasdiqlash kodi yuborildi</div>
+              <div class="otp-boxes">
+                <div class="otp-box active"></div>
+                <div class="otp-box"></div>
+                <div class="otp-box"></div>
+                <div class="otp-box"></div>
+                <div class="otp-box"></div>
+                <div class="otp-box"></div>
+              </div>
+              <div class="otp-timer">01:48 dan keyin qayta yuborish</div>
+              <button class="s-btn">Tasdiqlash</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone 2: Screen 3 (Create Request) - CENTER/ACTIVE -->
+      <div class="phone phone-2" id="phone-2">
+        <div class="phone-inner">
+          <div class="screen sc3">
+            <div class="sc3-header">
+              <span class="sc3-back">‹</span>
+              <span class="sc3-htitle">Sertifikat so'rovi yaratish</span>
+            </div>
+            <div class="sc3-body">
+              <div class="sc3-field">
+                <div class="sc3-label">Mentor ismi</div>
+                <div class="sc3-input">BAHODIR</div>
+              </div>
+              <div class="sc3-field">
+                <div class="sc3-label">Mentor familiyasi</div>
+                <div class="sc3-input">ISMATOV</div>
+              </div>
+              <div class="sc3-field">
+                <div class="s-input" style="margin-bottom:0">
+                  <span class="flag">🇺🇿</span>
+                  <span style="font-size:9px;color:#64748B;font-weight:600">+998</span>
+                  <span style="font-size:9px;color:#CBD5E1;margin:0 2px">|</span>
+                  <span style="font-size:10px;color:#0F172A;font-weight:600">993792894</span>
+                </div>
+              </div>
+              <div class="sc3-checkbox">
+                <div class="sc3-check">✓</div>
+                <div class="sc3-check-label">Kiritilgan ma'lumotlar to'g'riligini tasdiqlayman</div>
+              </div>
+              <button class="s-btn">So'rov yaratish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone 3: Screen 4 (Home) -->
+      <div class="phone phone-3" id="phone-3">
+        <div class="phone-inner">
+          <div class="screen sc4">
+            <div class="sc4-header">
+              <div class="sc4-welcome">Xush kelibsiz! 👋</div>
+              <div class="sc4-sub">Oxirgi faoliyatingiz va progressni shu yerda kuzating.</div>
+            </div>
+            <div class="sc4-cta">
+              <div class="sc4-cta-icon">＋</div>
+              <div class="sc4-cta-text">
+                <div class="t1">Sertifikat uchun so'rov yar...</div>
+                <div class="t2">Mentor tasdig'i uchun yangi so'rov...</div>
+              </div>
+              <span class="sc4-cta-arr">›</span>
+            </div>
+            <div class="sc4-section-title">Yaqin so'rovlar</div>
+            <div class="sc4-card">
+              <div class="sc4-card-top">
+                <div class="sc4-num">↑ #230</div>
+                <div class="sc4-badge">Yaratilgan</div>
+              </div>
+              <div class="sc4-amount">49000 UZS</div>
+              <div class="sc4-mentor-info">Ustoz: BAHODIR ISMATOV</div>
+              <div class="sc4-mentor-phone">Telefon: +998993792894</div>
+              <div class="sc4-status">
+                <div class="sc4-status-dot"></div>
+                <div class="sc4-status-text">To'lov holati: Kutilmoqda</div>
+              </div>
+              <div class="sc4-msg">Matn: Assalomu alaykum, Ustoz. Iltimos sertifikatni tasdiqlari yuboring.</div>
+              <button class="sc4-pay-btn">💳 To'lash ›</button>
+            </div>
+            <div class="sc4-tabbar">
+              <div class="tab-item active"><span class="tab-icon">⊞</span>Bosh sahifa</div>
+              <div class="tab-item"><span class="tab-icon">📋</span>Buyurtmalar</div>
+              <div class="tab-item"><span class="tab-icon">👤</span>Profil</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phone 4: Screen 5 (Payment) -->
+      <div class="phone phone-4" id="phone-4">
+        <div class="phone-inner">
+          <div class="screen sc5">
+            <div class="sc5-header">
+              <span class="sc3-back">‹</span>
+              <span class="sc5-htitle">To'lov</span>
+            </div>
+            <div class="sc5-body">
+              <div class="sc5-card">
+                <div class="sc5-card-label">Buyurtma to'lovi ma'lumotlari</div>
+                <div class="sc5-card-num">**** **** **** ****</div>
+                <div class="sc5-card-row">
+                  <div class="sc5-card-exp">
+                    MM/YY
+                    <span style="opacity:0.6;font-size:8px">Amal qilish muddati</span>
+                  </div>
+                  <div style="text-align:right">
+                    <div class="sc5-card-id">#230</div>
+                    <div class="sc5-card-sum">Summa: <span>49 000 UZS</span></div>
+                  </div>
+                </div>
+              </div>
+              <div class="sc5-input focused">0000 0000 0000 0000</div>
+              <div class="sc5-input">Amal qilish muddati (OOYY)</div>
+              <button class="s-btn" style="margin-top:4px">OTP kod yuborish</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dots nav -->
+      <div class="phones-nav" id="phonesNav">
+        <div class="nav-dot" onclick="goTo(0)"></div>
+        <div class="nav-dot" onclick="goTo(1)"></div>
+        <div class="nav-dot active" onclick="goTo(2)"></div>
+        <div class="nav-dot" onclick="goTo(3)"></div>
+        <div class="nav-dot" onclick="goTo(4)"></div>
+      </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  let current = 2;
+  const total = 5;
+
+  // positions relative to center
+  const positions = [
+    { tx: -240, ty: 30, rot: -8, scale: 0.82, opacity: 0.6, z: 1 },
+    { tx: -120, ty: 10, rot: -4, scale: 0.91, opacity: 0.8, z: 2 },
+    { tx: 0,    ty: 0,  rot: 0,  scale: 1,    opacity: 1,   z: 5 },
+    { tx: 120,  ty: 10, rot: 4,  scale: 0.91, opacity: 0.8, z: 2 },
+    { tx: 240,  ty: 30, rot: 8,  scale: 0.82, opacity: 0.6, z: 1 },
+  ];
+
+  const isMobile = window.innerWidth < 900;
+  const mult = isMobile ? 0.82 : 1;
+
+  function applyPositions() {
+    for (let i = 0; i < total; i++) {
+      const el = document.getElementById('phone-' + i);
+      const posIdx = i - current + 2; // relative index
+      if (posIdx < 0 || posIdx >= total) {
+        el.style.opacity = 0;
+        el.style.pointerEvents = 'none';
+        continue;
+      }
+      const p = positions[posIdx];
+      el.style.transform = `translateX(${p.tx * mult}px) translateY(${p.ty}px) rotate(${p.rot}deg) scale(${p.scale})`;
+      el.style.opacity = p.opacity;
+      el.style.zIndex = p.z;
+      el.style.pointerEvents = posIdx === 2 ? 'auto' : 'none';
+
+      // glow on center
+      if (posIdx === 2) {
+        el.style.boxShadow = '0 60px 100px rgba(37,99,235,0.25), 0 20px 50px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,255,255,0.12)';
+      } else {
+        el.style.boxShadow = '0 40px 80px rgba(0,0,0,0.22), 0 0 0 1px rgba(255,255,255,0.08)';
+      }
+    }
+
+    // update dots
+    document.querySelectorAll('.nav-dot').forEach((d, i) => {
+      d.classList.toggle('active', i === current);
+    });
+  }
+
+  function goTo(idx) {
+    current = idx;
+    applyPositions();
+  }
+
+  // auto-rotate
+  setInterval(() => {
+    current = (current + 1) % total;
+    applyPositions();
+  }, 3000);
+
+  // swipe
+  let startX = 0;
+  const wrapper = document.getElementById('phonesWrapper');
+  wrapper.addEventListener('touchstart', e => { startX = e.touches[0].clientX; });
+  wrapper.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - startX;
+    if (Math.abs(dx) > 40) {
+      current = dx < 0
+        ? Math.min(current + 1, total - 1)
+        : Math.max(current - 1, 0);
+      applyPositions();
+    }
+  });
+
+  // click side phones
+  for (let i = 0; i < total; i++) {
+    document.getElementById('phone-' + i).addEventListener('click', () => {
+      goTo(i);
+    });
+  }
+
+  applyPositions();
+</script>
+</body>
+</html>

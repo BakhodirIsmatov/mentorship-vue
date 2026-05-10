@@ -1,0 +1,36 @@
+# Build outputs (image ichida qaytadan generatsiya qilinadi)
+node_modules
+.nuxt
+.output
+.nitro
+.cache
+.data
+dist
+
+# Git
+.git
+.gitignore
+.gitattributes
+
+# OS / IDE
+.DS_Store
+.idea
+.vscode
+.fleet
+
+# Logs
+*.log
+logs
+
+# Env (har bir muhitda alohida bo'lishi kerak)
+.env
+.env.*
+!.env.example
+
+# Docker fayllarining o'zi kerak emas
+Dockerfile*
+.dockerignore
+docker-compose*.yml
+
+# Hujjat fayllari (image ichida kerakmas)
+README.md

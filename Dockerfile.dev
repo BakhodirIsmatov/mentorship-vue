@@ -1,0 +1,41 @@
+# syntax=docker/dockerfile:1.6
+
+# =====================================================================
+# DEVELOPMENT image — Nuxt dev server + HMR.
+# Source code is mounted from host (docker-compose.dev.yml volumes),
+# so edits on host are reflected immediately and HMR refreshes browser.
+# =====================================================================
+FROM node:20-alpine
+
+WORKDIR /app
+
+# git ba'zi npm modullari uchun kerak bo'ladi (postinstall, github URL'lar)
+RUN apk add --no-cache git
+
+# Faqat manifestni nusxalab deps'ni keshlanadigan layer'ga ajratamiz.
+# Anonymous volume `/app/node_modules` keyin uni host-mount'dan saqlab qoladi.
+COPY package*.json ./
+RUN if [ -f package-lock.json ]; then \
+      npm ci; \
+    else \
+      npm install --no-audit --no-fund; \
+    fi
+
+# Source — runtime'da bind-mount bilan ustiga keladi
+COPY . .
+
+ENV NODE_ENV=development \
+    HOST=0.0.0.0 \
+    PORT=3000 \
+    NITRO_HOST=0.0.0.0 \
+    NITRO_PORT=3000 \
+    # macOS Docker Desktop'da inotify ishonchsiz — polling majburiy.
+    # Vite (chokidar) va webpack ham shu o'zgaruvchilarni o'qiydi.
+    CHOKIDAR_USEPOLLING=true \
+    CHOKIDAR_INTERVAL=300 \
+    WATCHPACK_POLLING=true
+
+EXPOSE 3000
+
+# `--host 0.0.0.0` aks holda Nuxt faqat localhost ichida tinglaydi
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0", "--port", "3000"]
