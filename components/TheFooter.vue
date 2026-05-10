@@ -5,7 +5,7 @@
         <div class="brand-col">
           <a href="#top" class="logo">
             <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-            <span class="logo-text">Ustoz</span>
+            <span class="logo-text">Global Mentorship</span>
           </a>
           <p class="brand-text">{{ t('footer.brandText') }}</p>
           <div class="socials">
@@ -52,15 +52,15 @@
 
         <nav class="links-col" :aria-label="t('footer.contactCol')">
           <h4>{{ t('footer.contactCol') }}</h4>
-          <a href="mailto:salom@ustoz.uz">salom@ustoz.uz</a>
-          <a href="tel:+998712000000">+998 71 200 00 00</a>
+          <a href="mailto:salom@ustoz.uz">info@global-mentorship.uz</a>
+          <a href="tel:+998993792894">+998 99 379 28 94</a>
           <a href="#">{{ t('footer.contactHelp') }}</a>
           <a href="#">{{ t('footer.contactPrivacy') }}</a>
         </nav>
       </div>
 
       <div class="footer-bottom">
-        <p>© {{ year }} Ustoz. {{ t('footer.rights') }}</p>
+        <p>© {{ year }} Global Mentorship. {{ t('footer.rights') }}</p>
         <div class="legal">
           <a href="#">{{ t('footer.legalTerms') }}</a>
           <a href="#">{{ t('footer.legalPrivacy') }}</a>

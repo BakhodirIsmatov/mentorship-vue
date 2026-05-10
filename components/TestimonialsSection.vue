@@ -45,22 +45,25 @@ const { t } = useI18n()
 
 const items = [
   {
-    name: 'Asror Karimov',
-    initials: 'AK',
+    // Shogird — mockup'dagi `ustoz-home` ekranidagi shogird ismi
+    name: 'Burxon Davronov',
+    initials: 'BD',
     quoteKey: 'testimonials.t1Quote',
     roleKey: 'testimonials.t1Role',
     color: 'linear-gradient(135deg, #6366f1, #8b5cf6)',
     featured: false
   },
   {
-    name: 'Murodjon ota Yusupov',
-    initials: 'MY',
+    // Ustoz — mockup'dagi sertifikat ekranidagi imzolagan ustoz
+    name: 'Bahodir Ismatov',
+    initials: 'BI',
     quoteKey: 'testimonials.t2Quote',
     roleKey: 'testimonials.t2Role',
     color: 'rgba(255, 255, 255, 0.22)',
     featured: true
   },
   {
+    // Ish beruvchi — sertifikatni QR orqali tekshiruvchi
     name: 'Dilshod Rahimov',
     initials: 'DR',
     quoteKey: 'testimonials.t3Quote',

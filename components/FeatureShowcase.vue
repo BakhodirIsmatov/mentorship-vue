@@ -27,55 +27,71 @@
       </div>
 
       <div class="visual-col" :class="reverse ? 'sr-right' : 'sr-left'">
-        <div v-if="variant === 'search'" class="mockup search-mockup">
+        <!-- ============ FORM MOCKUP (Sertifikat so'rovi) ============ -->
+        <div v-if="variant === 'form'" class="mockup form-mockup">
           <div class="mock-head">
-            <div class="mock-search">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <span class="back-cell" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12" />
+                <polyline points="12 19 5 12 12 5" />
               </svg>
-              <span>{{ t('showcase1.searchPlaceholder') }}</span>
-            </div>
-            <div class="mock-filter">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="21" y1="4" x2="14" y2="4"/><line x1="10" y1="4" x2="3" y2="4"/>
-                <line x1="21" y1="12" x2="12" y2="12"/><line x1="8" y1="12" x2="3" y2="12"/>
-                <line x1="21" y1="20" x2="16" y2="20"/><line x1="12" y1="20" x2="3" y2="20"/>
-                <line x1="14" y1="2" x2="14" y2="6"/><line x1="8" y1="10" x2="8" y2="14"/>
-                <line x1="16" y1="18" x2="16" y2="22"/>
-              </svg>
-            </div>
+            </span>
+            <h3 class="mock-title">{{ t('showcase1.formTitle') }}</h3>
+            <span class="back-cell" />
           </div>
 
-          <div class="chips">
-            <span class="chip chip-active">{{ t('showcase1.chipAll') }}</span>
-            <span class="chip">{{ t('showcase1.chipCraft') }}</span>
-            <span class="chip">{{ t('showcase1.chipIt') }}</span>
-            <span class="chip">{{ t('showcase1.chipCook') }}</span>
+          <p class="mock-sub">{{ t('showcase1.formSub') }}</p>
+
+          <div class="mock-field">
+            <label>{{ t('showcase1.formMentorName') }}</label>
+            <div class="mock-input">Bahodir</div>
           </div>
 
-          <div class="mentor-list">
-            <div v-for="m in mentors" :key="m.name" class="mentor-row">
-              <div class="mentor-avatar" :style="{ background: m.color }">{{ m.initials }}</div>
-              <div class="mentor-body">
-                <div class="mentor-name">{{ m.name }}</div>
-                <div class="mentor-meta">
-                  <svg viewBox="0 0 24 24" width="12" height="12" fill="#f59e0b"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-                  <span>{{ m.rating }}</span>
-                  <span class="dot">·</span>
-                  <span>{{ t('showcase1.fieldCraft') }}</span>
-                </div>
-              </div>
-              <button class="mentor-btn" :aria-label="t('showcase1.cta')">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+          <div class="mock-field">
+            <label>{{ t('showcase1.formMentorSurname') }}</label>
+            <div class="mock-input">Ismatov</div>
+          </div>
+
+          <div class="mock-field">
+            <label>{{ t('showcase1.formPhone') }}</label>
+            <div class="mock-input mock-input-phone">
+              <span class="mock-flag">
+                <svg viewBox="0 0 30 20" width="18" height="12" aria-hidden="true">
+                  <rect width="30" height="6" fill="#0099b5" />
+                  <rect y="6" width="30" height="0.7" fill="#ce1126" />
+                  <rect y="6.7" width="30" height="6.6" fill="#fff" />
+                  <rect y="13.3" width="30" height="0.7" fill="#ce1126" />
+                  <rect y="14" width="30" height="6" fill="#1eb53a" />
                 </svg>
-              </button>
+                +998
+                <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9" />
+                </svg>
+              </span>
+              <span>90 555 12 34</span>
             </div>
           </div>
+
+          <label class="mock-check">
+            <span class="cb checked" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12" />
+              </svg>
+            </span>
+            <span>{{ t('showcase1.formCheckbox') }}</span>
+          </label>
+
+          <button type="button" class="mock-submit" tabindex="-1">
+            {{ t('showcase1.formSubmit') }}
+            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 6 15 12 9 18" />
+            </svg>
+          </button>
 
           <div class="mock-glow" />
         </div>
 
+        <!-- ============ CERTIFICATE MOCKUP ============ -->
         <div v-else class="mockup cert-mockup">
           <div class="cert-paper">
             <div class="cert-band">
@@ -87,24 +103,24 @@
 
             <div class="cert-body">
               <div class="cert-eyebrow">{{ t('showcase2.eyebrowText') }}</div>
-              <div class="cert-name">Asror Karimov</div>
+              <div class="cert-name">Burxon Davronov</div>
               <div class="cert-text">{{ t('showcase2.text') }}</div>
               <div class="cert-skill">{{ t('showcase2.skill') }}</div>
 
               <div class="cert-meta">
                 <div class="cm">
                   <div class="cm-label">{{ t('showcase2.metaNum') }}</div>
-                  <div class="cm-value">UZ-2026-04891</div>
+                  <div class="cm-value">UZ-2026-00232</div>
                 </div>
                 <div class="cm">
                   <div class="cm-label">{{ t('showcase2.metaDate') }}</div>
-                  <div class="cm-value">15.03.2026</div>
+                  <div class="cm-value">10.05.2026</div>
                 </div>
               </div>
 
               <div class="cert-footer">
                 <div class="cert-sign">
-                  <div class="sign-line">Murodjon ota Yusupov</div>
+                  <div class="sign-line">Bahodir Ismatov</div>
                   <div class="sign-label">{{ t('showcase2.signLabel') }}</div>
                 </div>
                 <div class="cert-seal">
@@ -131,19 +147,13 @@
 </template>
 
 <script setup lang="ts">
-const props = defineProps<{
-  variant: 'search' | 'certificate'
+defineProps<{
+  variant: 'form' | 'certificate'
   reverse?: boolean
   ns: 'showcase1' | 'showcase2'
 }>()
 
 const { t } = useI18n()
-
-const mentors = computed(() => [
-  { name: 'Murodjon ota Yusupov', initials: 'MY', rating: 4.9, color: 'linear-gradient(135deg,#6366f1,#8b5cf6)' },
-  { name: 'Olim Rahmonov', initials: 'OR', rating: 4.8, color: 'linear-gradient(135deg,#ec4899,#f472b6)' },
-  { name: 'Sherzod Karimov', initials: 'SK', rating: 4.7, color: 'linear-gradient(135deg,#f59e0b,#fbbf24)' }
-])
 </script>
 
 <style scoped>
@@ -189,81 +199,120 @@ const mentors = computed(() => [
   filter: blur(20px);
 }
 
-/* ============ SEARCH MOCKUP ============ */
-.search-mockup { padding: 24px; }
-.mock-head { display: flex; gap: 10px; margin-bottom: 16px; }
-.mock-search {
-  flex: 1;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 12px 16px;
-  background: var(--c-surface);
-  border-radius: 12px;
-  font-size: 14px;
-  color: var(--c-text-muted);
-}
-.mock-filter {
-  width: 44px;
-  height: 44px;
-  display: grid;
-  place-items: center;
-  background: var(--grad-main);
-  color: #fff;
-  border-radius: 12px;
-}
+/* ============ FORM MOCKUP ============ */
+.form-mockup { padding: 28px 28px 32px; }
 
-.chips { display: flex; gap: 8px; margin-bottom: 20px; overflow-x: auto; scrollbar-width: none; }
-.chips::-webkit-scrollbar { display: none; }
-.chip {
-  padding: 8px 14px;
-  background: var(--c-surface);
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--c-text-muted);
-  white-space: nowrap;
-}
-.chip-active { background: var(--c-text); color: var(--c-bg); }
-
-.mentor-list { display: flex; flex-direction: column; gap: 10px; }
-.mentor-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px;
-  background: var(--c-surface);
-  border-radius: 14px;
-  transition: background 0.2s ease, transform 0.2s ease;
-}
-.mentor-row:hover { background: var(--c-card); box-shadow: var(--shadow-md); transform: translateX(4px); }
-.mentor-avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
+.mock-head {
   display: grid;
-  place-items: center;
-  color: #fff;
-  font-weight: 700;
-  font-size: 13px;
-  flex-shrink: 0;
+  grid-template-columns: 36px 1fr 36px;
+  align-items: center;
+  margin-bottom: 12px;
 }
-.mentor-body { flex: 1; min-width: 0; }
-.mentor-name { font-weight: 700; font-size: 14px; margin-bottom: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: var(--c-text); }
-.mentor-meta { display: flex; align-items: center; gap: 4px; font-size: 12px; color: var(--c-text-muted); }
-.mentor-meta .dot { margin: 0 2px; }
-.mentor-btn {
+.back-cell {
   width: 36px;
   height: 36px;
-  border-radius: 50%;
-  background: var(--grad-main);
-  color: #fff;
+  border-radius: 10px;
+  background: var(--c-surface);
   display: grid;
   place-items: center;
-  flex-shrink: 0;
-  transition: transform 0.2s var(--ease-out);
+  color: var(--c-text);
 }
-.mentor-btn:hover { transform: scale(1.1) rotate(90deg); }
+.mock-title {
+  font-family: 'Sora', sans-serif;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: var(--c-text);
+}
+
+.mock-sub {
+  font-size: 14px;
+  color: var(--c-text-muted);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+
+.mock-field { margin-bottom: 14px; }
+.mock-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--c-text-muted);
+  margin-bottom: 6px;
+  letter-spacing: 0.02em;
+}
+.mock-input {
+  height: 46px;
+  border: 1px solid var(--c-border);
+  border-radius: 12px;
+  padding: 0 14px;
+  background: var(--c-surface);
+  display: flex;
+  align-items: center;
+  font-size: 14.5px;
+  font-weight: 600;
+  color: var(--c-text);
+  letter-spacing: 0.02em;
+}
+.mock-input-phone { gap: 10px; padding-left: 4px; }
+
+.mock-flag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border-right: 1px solid var(--c-border);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--c-text);
+  height: 36px;
+  background: transparent;
+}
+.mock-flag svg:first-child { border-radius: 2px; overflow: hidden; }
+
+.mock-check {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--c-text-muted);
+  margin: 6px 0 22px;
+}
+.cb {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1.5px solid var(--c-border-strong);
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  margin-top: 1px;
+  background: var(--c-card);
+}
+.cb.checked {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+}
+
+.mock-submit {
+  width: 100%;
+  padding: 14px 0;
+  background: var(--grad-main);
+  color: #fff;
+  border-radius: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 700;
+  font-size: 15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  cursor: default;
+  box-shadow: 0 12px 28px rgba(99, 102, 241, 0.32);
+}
 
 /* ============ CERTIFICATE MOCKUP ============ */
 .cert-mockup { padding: 0; overflow: hidden; }
@@ -325,6 +374,7 @@ const mentors = computed(() => [
 
 @media (max-width: 768px) {
   .showcase { padding: 60px 0; }
+  .form-mockup { padding: 22px 20px 26px; }
   .cert-body { padding: 24px 20px; }
   .cert-band { padding: 16px 20px; }
   .cert-name { font-size: 22px; }

@@ -3,7 +3,7 @@
     <div class="container nav-inner">
       <a href="#top" class="logo" :aria-label="t('nav.home')">
         <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-        <span class="logo-text">Ustoz</span>
+        <span class="logo-text">Global Mentorship</span>
       </a>
 
       <nav class="nav-links" :aria-label="t('nav.menu')">

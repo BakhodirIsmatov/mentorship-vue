@@ -6,7 +6,7 @@
       <HeroSection />
       <StatsBar />
       <FeaturesGrid />
-      <FeatureShowcase variant="search" ns="showcase1" />
+      <FeatureShowcase variant="form" ns="showcase1" />
       <FeatureShowcase variant="certificate" ns="showcase2" :reverse="true" />
       <ProcessSteps />
       <AudienceSection />

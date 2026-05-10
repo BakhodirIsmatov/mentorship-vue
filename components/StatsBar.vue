@@ -24,8 +24,8 @@ const { t } = useI18n()
 const stats = [
   { key: 'mentors', target: 1247, suffix: '+' },
   { key: 'certs', target: 5830, suffix: '+' },
-  { key: 'fields', target: 52, suffix: '' },
-  { key: 'employment', target: 94, suffix: '%' }
+  { key: 'requests', target: 232, suffix: '+' },
+  { key: 'approval', target: 98, suffix: '%' }
 ] as const
 
 const values = ref<number[]>(stats.map(() => 0))
