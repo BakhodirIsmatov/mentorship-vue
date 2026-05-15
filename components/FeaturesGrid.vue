@@ -7,7 +7,6 @@
           {{ t('features.title1') }}<br />
           <span class="gradient-text">{{ t('features.titleHl') }}</span>
         </h2>
-        <p class="section-subtitle">{{ t('features.subtitle') }}</p>
       </header>
 
       <div class="grid">

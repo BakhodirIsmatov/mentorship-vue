@@ -3,13 +3,16 @@
     <div class="container nav-inner">
       <a href="#top" class="logo" :aria-label="t('nav.home')">
         <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-        <span class="logo-text">Global Mentorship</span>
+        <span class="logo-text">Global Mentorship Platform</span>
       </a>
 
       <nav class="nav-links" :aria-label="t('nav.menu')">
-        <a href="#features">{{ t('nav.features') }}</a>
         <a href="#process">{{ t('nav.process') }}</a>
         <a href="#audience">{{ t('nav.audience') }}</a>
+        <!-- <a href="#verify" class="nav-link-verify">
+          <span class="nav-link-dot" />
+          {{ t('nav.verify') }}
+        </a> -->
         <a href="#faq">{{ t('nav.faq') }}</a>
       </nav>
 
@@ -82,6 +85,10 @@
       <a @click="menuOpen = false" href="#features">{{ t('nav.features') }}</a>
       <a @click="menuOpen = false" href="#process">{{ t('nav.process') }}</a>
       <a @click="menuOpen = false" href="#audience">{{ t('nav.audience') }}</a>
+      <a @click="menuOpen = false" href="#verify" class="mobile-verify">
+        <span class="nav-link-dot" />
+        {{ t('nav.verify') }}
+      </a>
       <a @click="menuOpen = false" href="#faq">{{ t('nav.faq') }}</a>
       <a @click="menuOpen = false" href="#download" class="btn btn-primary mobile-cta">
         {{ t('nav.download') }}
@@ -204,6 +211,42 @@ onBeforeUnmount(() => {
 }
 .nav-links a:hover { color: var(--c-primary); }
 .nav-links a:hover::after { right: 0; }
+
+.nav-link-verify {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px !important;
+  border-radius: 999px;
+  background: var(--grad-soft);
+  color: var(--c-primary) !important;
+  font-weight: 600 !important;
+}
+.nav-link-verify::after { display: none; }
+.nav-link-verify:hover {
+  background: var(--grad-main);
+  color: #fff !important;
+}
+.nav-link-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18);
+  animation: pulse-dot 2s var(--ease-out) infinite;
+}
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.18); }
+  50% { box-shadow: 0 0 0 7px rgba(16, 185, 129, 0.05); }
+}
+
+.mobile-verify {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 10px;
+  color: var(--c-primary) !important;
+  background: var(--grad-soft);
+}
 
 /* ============ ACTIONS ============ */
 .nav-actions {

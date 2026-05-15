@@ -5,7 +5,7 @@
         <div class="brand-col">
           <a href="#top" class="logo">
             <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-            <span class="logo-text">Global Mentorship</span>
+            <span class="logo-text">Global Mentorship Platform</span>
           </a>
           <p class="brand-text">{{ t('footer.brandText') }}</p>
           <div class="socials">
@@ -38,8 +38,9 @@
           <h4>{{ t('footer.productCol') }}</h4>
           <a href="#features">{{ t('footer.productLink1') }}</a>
           <a href="#process">{{ t('footer.productLink2') }}</a>
-          <a href="#faq">{{ t('footer.productLink3') }}</a>
-          <a href="#download">{{ t('footer.productLink4') }}</a>
+          <a href="#verify">{{ t('footer.productLink3') }}</a>
+          <a href="#faq">{{ t('footer.productLink4') }}</a>
+          <a href="#download">{{ t('footer.productLink5') }}</a>
         </nav>
 
         <nav class="links-col" :aria-label="t('footer.companyCol')">
@@ -60,7 +61,7 @@
       </div>
 
       <div class="footer-bottom">
-        <p>© {{ year }} Global Mentorship. {{ t('footer.rights') }}</p>
+        <p>© {{ year }} Global Mentorship Platform. {{ t('footer.rights') }}</p>
         <div class="legal">
           <a href="#">{{ t('footer.legalTerms') }}</a>
           <a href="#">{{ t('footer.legalPrivacy') }}</a>

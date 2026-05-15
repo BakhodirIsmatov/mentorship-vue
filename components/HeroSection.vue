@@ -9,11 +9,6 @@
 
     <div class="container hero-inner">
       <div class="hero-text">
-        <div class="hero-badge fade-in" style="animation-delay: 0.05s">
-          <span class="hero-badge-dot" />
-          {{ t('hero.badge') }}
-        </div>
-
         <h1 class="hero-title fade-in" style="animation-delay: 0.15s">
           {{ t('hero.title1') }}
           <span class="gradient-text">{{ t('hero.titleHl') }}</span>

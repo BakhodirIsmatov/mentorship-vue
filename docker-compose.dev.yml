@@ -16,6 +16,7 @@ services:
       CHOKIDAR_USEPOLLING: "true"
       CHOKIDAR_INTERVAL: "300"
       WATCHPACK_POLLING: "true"
+      API_BASE_URL: "https://mentor.x-nose.uz"
     volumes:
       # Loyiha source'ini host'dan konteynerga bog'lash — har bir saqlash
       # darhol Nuxt HMR'ni ishga tushiradi.

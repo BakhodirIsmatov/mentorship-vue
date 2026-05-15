@@ -5,10 +5,11 @@
     <main>
       <HeroSection />
       <StatsBar />
-      <FeaturesGrid />
+      <!-- <FeaturesGrid /> -->
+      <ProcessSteps />
       <FeatureShowcase variant="form" ns="showcase1" />
       <FeatureShowcase variant="certificate" ns="showcase2" :reverse="true" />
-      <ProcessSteps />
+      <CertificateVerify />
       <AudienceSection />
       <TestimonialsSection />
       <FaqAccordion />
