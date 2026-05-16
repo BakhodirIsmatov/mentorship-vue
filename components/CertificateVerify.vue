@@ -258,40 +258,102 @@
               </div>
             </div>
 
-            <div class="success-preview">
-              <iframe
+            <button
+              type="button"
+              class="success-preview"
+              :aria-label="t('verify.openNewTab')"
+              @click="openPreview"
+            >
+              <img
                 :src="certificateUrl"
-                :title="t('verify.successTitle')"
+                :alt="t('verify.successTitle')"
                 loading="lazy"
                 referrerpolicy="no-referrer"
               />
-            </div>
+              <span class="success-preview-overlay">
+                <span class="success-preview-chip">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M15 3h6v6" />
+                    <path d="M9 21H3v-6" />
+                    <path d="M21 3l-7 7" />
+                    <path d="M3 21l7-7" />
+                  </svg>
+                  {{ t('verify.openNewTab') }}
+                </span>
+              </span>
+            </button>
 
             <div class="success-actions">
-              <a :href="certificateUrl" target="_blank" rel="noopener" class="btn btn-secondary">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                  <polyline points="15 3 21 3 21 9"/>
-                  <line x1="10" y1="14" x2="21" y2="3"/>
-                </svg>
-                {{ t('verify.openNewTab') }}
+              <button type="button" class="action-chip action-chip-primary" @click="openPreview">
+                <span class="action-chip-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="11" cy="11" r="7" />
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                </span>
+                <span class="action-chip-copy">
+                  <strong>{{ t('verify.successTitle') }}</strong>
+                  <small>{{ t('verify.openNewTab') }}</small>
+                </span>
+              </button>
+              <a :href="certificateUrl" target="_blank" rel="noopener" class="action-chip">
+                <span class="action-chip-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                    <polyline points="15 3 21 3 21 9"/>
+                    <line x1="10" y1="14" x2="21" y2="3"/>
+                  </svg>
+                </span>
+                <span class="action-chip-copy">
+                  <strong>{{ t('verify.openNewTab') }}</strong>
+                  <small>Browser</small>
+                </span>
               </a>
-              <a :href="certificateUrl" download class="btn btn-primary">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                  <polyline points="7 10 12 15 17 10"/>
-                  <line x1="12" y1="15" x2="12" y2="3"/>
-                </svg>
-                {{ t('verify.downloadPdf') }}
+              <a :href="certificateUrl" download class="action-chip">
+                <span class="action-chip-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                    <polyline points="7 10 12 15 17 10"/>
+                    <line x1="12" y1="15" x2="12" y2="3"/>
+                  </svg>
+                </span>
+                <span class="action-chip-copy">
+                  <strong>{{ t('verify.downloadPdf') }}</strong>
+                  <small>PNG</small>
+                </span>
               </a>
-              <button type="button" class="btn btn-ghost-inline" @click="resetForm">
-                <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="23 4 23 10 17 10"/>
-                  <path d="M20.49 15A9 9 0 1 1 18.36 5.64L23 10"/>
-                </svg>
-                {{ t('verify.tryAgain') }}
+              <button type="button" class="action-chip action-chip-muted" @click="resetForm">
+                <span class="action-chip-icon">
+                  <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="23 4 23 10 17 10"/>
+                    <path d="M20.49 15A9 9 0 1 1 18.36 5.64L23 10"/>
+                  </svg>
+                </span>
+                <span class="action-chip-copy">
+                  <strong>{{ t('verify.tryAgain') }}</strong>
+                  <small>Reset</small>
+                </span>
               </button>
             </div>
+
+            <transition name="fade">
+              <div v-if="isPreviewOpen" class="preview-lightbox" @click.self="closePreview">
+                <button type="button" class="preview-close" :aria-label="t('verify.openNewTab')" @click="closePreview">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18" />
+                    <line x1="6" y1="6" x2="18" y2="18" />
+                  </svg>
+                </button>
+                <div class="preview-lightbox-inner">
+                  <img
+                    :src="certificateUrl"
+                    :alt="t('verify.successTitle')"
+                    loading="lazy"
+                    referrerpolicy="no-referrer"
+                  />
+                </div>
+              </div>
+            </transition>
           </div>
         </div>
       </div>
@@ -312,6 +374,7 @@ const state = ref<State>('idle')
 const loading = computed(() => state.value === 'loading')
 const error = ref<ErrorInfo | null>(null)
 const certificateUrl = ref<string>('')
+const isPreviewOpen = ref(false)
 
 const phoneDisplay = computed(() => {
   const d = phoneRaw.value
@@ -386,12 +449,22 @@ onMounted(() => {
 // ============ SUBMIT ============
 const resetForm = () => {
   state.value = 'idle'
+  isPreviewOpen.value = false
   certificateUrl.value = ''
   certNumber.value = ''
   phoneRaw.value = ''
   captchaInput.value = ''
   error.value = null
   regenerateCaptcha()
+}
+
+const openPreview = () => {
+  if (!certificateUrl.value) return
+  isPreviewOpen.value = true
+}
+
+const closePreview = () => {
+  isPreviewOpen.value = false
 }
 
 const onSubmit = async () => {
@@ -426,6 +499,7 @@ const onSubmit = async () => {
     }
 
     certificateUrl.value = resolvedUrl
+    isPreviewOpen.value = false
     state.value = 'success'
   } catch (e: unknown) {
     const status = (e as { statusCode?: number; response?: { status?: number } })?.statusCode
@@ -958,48 +1032,143 @@ const onSubmit = async () => {
 }
 
 .success-preview {
+  position: relative;
+  width: 100%;
   border-radius: 18px;
   overflow: hidden;
   border: 1px solid var(--c-border);
   background: var(--c-surface);
   box-shadow: var(--shadow-md);
   aspect-ratio: 16 / 11;
+  padding: 0;
+  cursor: zoom-in;
 }
-.success-preview iframe {
+.success-preview img {
   width: 100%;
   height: 100%;
-  border: 0;
   display: block;
+  object-fit: cover;
   background: var(--c-surface);
+  transition: transform 0.35s var(--ease-out);
+}
+.success-preview:hover img { transform: scale(1.03); }
+.success-preview-overlay {
+  position: absolute;
+  inset: auto 16px 16px 16px;
+  display: flex;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+.success-preview-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(15, 23, 42, 0.72);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
 }
 
 .success-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.action-chip {
+  min-width: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-}
-.success-actions .btn { flex: 1; min-width: 160px; }
-.btn-ghost-inline {
-  flex: 1;
-  min-width: 160px;
-  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 8px;
-  height: 50px;
-  padding: 0 18px;
-  border-radius: 14px;
-  background: transparent;
-  color: var(--c-text-muted);
-  border: 1px dashed var(--c-border-strong);
-  font-weight: 600;
-  font-size: 14.5px;
-  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease;
+  gap: 12px;
+  padding: 14px 16px;
+  border-radius: 16px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.64));
+  border: 1px solid rgba(148, 163, 184, 0.16);
+  box-shadow: 0 12px 26px rgba(15, 23, 42, 0.05);
+  color: var(--c-text);
+  text-align: left;
+  transition: transform 0.25s var(--ease-out), border-color 0.25s ease, box-shadow 0.25s ease;
 }
-.btn-ghost-inline:hover {
-  color: var(--c-primary);
-  border-color: var(--c-primary);
+.action-chip:hover {
+  transform: translateY(-2px);
+  border-color: rgba(99, 102, 241, 0.26);
+  box-shadow: 0 16px 34px rgba(15, 23, 42, 0.08);
+}
+.action-chip-primary {
+  background: linear-gradient(135deg, rgba(99, 102, 241, 0.14), rgba(236, 72, 153, 0.12)), var(--c-card);
+}
+.action-chip-muted {
+  background: linear-gradient(180deg, rgba(248, 250, 252, 0.9), rgba(241, 245, 249, 0.8));
+}
+.action-chip-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
   background: var(--grad-soft);
+  color: var(--c-primary);
+}
+.action-chip-copy {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.action-chip-copy strong {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--c-text);
+}
+.action-chip-copy small {
+  font-size: 12px;
+  color: var(--c-text-muted);
+}
+
+.preview-lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1200;
+  display: grid;
+  place-items: center;
+  padding: 24px;
+  background: rgba(2, 6, 23, 0.84);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+.preview-lightbox-inner {
+  position: relative;
+  width: min(1100px, 100%);
+  max-height: calc(100vh - 48px);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.38);
+}
+.preview-lightbox-inner img {
+  width: 100%;
+  height: 100%;
+  max-height: calc(100vh - 48px);
+  object-fit: contain;
+  display: block;
+  background: #fff;
+}
+.preview-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 1;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
 }
 
 /* ============ TRANSITIONS ============ */
@@ -1035,8 +1204,7 @@ const onSubmit = async () => {
   .captcha-display { grid-area: cap; width: 100%; }
   .captcha-refresh { grid-area: ref; }
   .captcha-input { grid-area: inp; }
-  .success-actions .btn,
-  .btn-ghost-inline { flex: 1 1 100%; }
+  .success-actions { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
@@ -1045,6 +1213,25 @@ const onSubmit = async () => {
   .verify-title { font-size: 26px; }
   .input { height: 50px; }
   .captcha-display, .captcha-refresh { height: 50px; }
+  .success-preview-overlay {
+    inset: auto 12px 12px 12px;
+  }
+  .success-preview-chip {
+    padding: 9px 12px;
+    font-size: 11.5px;
+  }
+  .preview-lightbox {
+    padding: 14px;
+  }
+  .preview-lightbox-inner {
+    border-radius: 18px;
+  }
+  .preview-close {
+    top: 10px;
+    right: 10px;
+    width: 38px;
+    height: 38px;
+  }
 }
 
 :root[data-theme='dark'] .verify-side-card {
@@ -1062,6 +1249,22 @@ const onSubmit = async () => {
 :root[data-theme='dark'] .verify-trust li {
   background: rgba(255, 255, 255, 0.05);
   border-color: rgba(148, 163, 184, 0.12);
+}
+
+:root[data-theme='dark'] .action-chip {
+  background: linear-gradient(180deg, rgba(24, 24, 44, 0.96), rgba(17, 17, 32, 0.92));
+  border-color: rgba(148, 163, 184, 0.12);
+  box-shadow: 0 16px 34px rgba(0, 0, 0, 0.24);
+}
+
+:root[data-theme='dark'] .action-chip-primary {
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.18), rgba(236, 72, 153, 0.14)),
+    linear-gradient(180deg, rgba(24, 24, 44, 0.96), rgba(17, 17, 32, 0.92));
+}
+
+:root[data-theme='dark'] .action-chip-muted {
+  background: linear-gradient(180deg, rgba(21, 21, 38, 0.96), rgba(15, 15, 28, 0.92));
 }
 
 :root[data-theme='dark'] .meter-dot {
