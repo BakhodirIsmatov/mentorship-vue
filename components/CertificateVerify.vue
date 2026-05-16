@@ -419,10 +419,10 @@ const onSubmit = async () => {
       }
     })
 
-    if (!data?.url) {
+    if (!data?.certificate_url) {
       throw createError({ statusCode: 404 })
     }
-    certificateUrl.value = data.url
+    certificateUrl.value = data.certificate_url
     state.value = 'success'
   } catch (e: unknown) {
     const status = (e as { statusCode?: number; response?: { status?: number } })?.statusCode
