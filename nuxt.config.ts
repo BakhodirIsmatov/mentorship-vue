@@ -15,7 +15,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
 
   runtimeConfig: {
-    apiBase: process.env.API_BASE_URL || 'https://mentor.x-nose.uz/'
+    apiBase: process.env.API_BASE_URL || 'https://api.global-mentorship.uz/'
   },
 
   css: ['~/assets/css/main.css'],

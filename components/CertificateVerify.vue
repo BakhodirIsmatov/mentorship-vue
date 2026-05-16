@@ -410,7 +410,7 @@ const onSubmit = async () => {
 
   state.value = 'loading'
   try {
-    const data = await $fetch<{ url: string }>('https://mentor.x-nose.uz/certificate/verify', {
+    const data = await $fetch<{ url: string }>('https://api.global-mentorship.uz/certificate/verify', {
       method: 'POST',
       body: {
         certificate_number: certNumber.value,
