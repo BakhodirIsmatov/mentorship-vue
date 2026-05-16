@@ -1161,14 +1161,21 @@ const onSubmit = async () => {
   position: absolute;
   top: 18px;
   right: 18px;
-  z-index: 1;
+  z-index: 3;
   width: 42px;
   height: 42px;
   border-radius: 999px;
   display: grid;
   place-items: center;
-  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  background: rgba(15, 23, 42, 0.78);
   color: #fff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+.preview-close:hover {
+  background: rgba(15, 23, 42, 0.92);
 }
 
 /* ============ TRANSITIONS ============ */
