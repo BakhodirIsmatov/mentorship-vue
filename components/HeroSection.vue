@@ -114,8 +114,10 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
   gap: 64px;
   align-items: center;
   position: relative;
+  min-width: 0;
 }
-.hero-text { max-width: 560px; }
+.hero-text { max-width: 560px; min-width: 0; }
+.hero-visual { min-width: 0; }
 
 .hero-badge {
   display: inline-flex;
@@ -249,5 +251,46 @@ onBeforeUnmount(() => window.removeEventListener('scroll', onScroll))
 @media (max-width: 768px) {
   .hero { padding: 40px 0 80px; }
   .hero-desc { font-size: 16px; }
+  .hero-trust {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 14px;
+    width: min(100%, 320px);
+    margin-inline: auto;
+    padding: 16px 18px;
+    border-radius: 22px;
+    background:
+      linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.62));
+    border: 1px solid rgba(148, 163, 184, 0.16);
+    box-shadow: 0 18px 40px rgba(15, 23, 42, 0.08);
+    backdrop-filter: blur(12px);
+  }
+  .avatars {
+    justify-content: center;
+    margin-inline: auto;
+  }
+  .avatar {
+    width: 42px;
+    height: 42px;
+    margin-left: -8px;
+  }
+  .trust-text {
+    text-align: center;
+  }
+  .stars {
+    justify-content: center;
+    margin-bottom: 6px;
+  }
+  .trust-meta {
+    font-size: 12.5px;
+    line-height: 1.5;
+  }
+}
+
+:root[data-theme='dark'] .hero-trust {
+  background:
+    linear-gradient(180deg, rgba(19, 19, 37, 0.9), rgba(15, 15, 29, 0.78));
+  border-color: rgba(148, 163, 184, 0.12);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.28);
 }
 </style>

@@ -518,10 +518,12 @@ const onSubmit = async () => {
   grid-template-columns: minmax(280px, 0.42fr) minmax(0, 0.58fr);
   gap: 22px;
   align-items: stretch;
+  min-width: 0;
 }
 
 .verify-side {
   position: relative;
+  min-width: 0;
 }
 
 .verify-side-card,
@@ -546,6 +548,7 @@ const onSubmit = async () => {
   border-radius: calc(var(--radius-xl) + 6px);
   box-shadow: var(--shadow-xl), 0 40px 80px rgba(99, 102, 241, 0.14);
   padding: 36px;
+  min-width: 0;
 }
 
 .verify-side-card::before,
@@ -899,7 +902,6 @@ const onSubmit = async () => {
   display: block;
   flex-shrink: 0;
   margin: auto;
-  margin-top: 10px;
   color: #fff;
 }
 .trust-1 { background: var(--grad-purple); }
@@ -1040,5 +1042,26 @@ const onSubmit = async () => {
   .verify-title { font-size: 26px; }
   .input { height: 50px; }
   .captcha-display, .captcha-refresh { height: 50px; }
+}
+
+:root[data-theme='dark'] .verify-side-card {
+  background:
+    linear-gradient(180deg, rgba(99, 102, 241, 0.12), transparent 34%),
+    linear-gradient(180deg, rgba(19, 19, 37, 0.96), rgba(15, 15, 29, 0.92));
+  box-shadow: 0 26px 60px rgba(0, 0, 0, 0.34);
+}
+
+:root[data-theme='dark'] .verify-card {
+  background: linear-gradient(180deg, rgba(19, 19, 37, 0.98), rgba(15, 15, 29, 0.94));
+}
+
+:root[data-theme='dark'] .verify-mini-card,
+:root[data-theme='dark'] .verify-trust li {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(148, 163, 184, 0.12);
+}
+
+:root[data-theme='dark'] .meter-dot {
+  background: var(--c-card);
 }
 </style>

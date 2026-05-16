@@ -5,7 +5,10 @@
         <div class="brand-col">
           <a href="#top" class="logo">
             <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-            <span class="logo-text">Global Mentorship Platform</span>
+            <span class="logo-copy">
+              <span class="logo-text">Global Mentorship</span>
+              <span class="logo-subtext">Platform</span>
+            </span>
           </a>
           <p class="brand-text">{{ t('footer.brandText') }}</p>
           <div class="socials">
@@ -104,7 +107,7 @@ const year = new Date().getFullYear()
 }
 
 .brand-col { max-width: 360px; }
-.logo { display: inline-flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.logo { display: inline-flex; align-items: center; gap: 12px; margin-bottom: 16px; }
 .logo-img {
   width: 40px;
   height: 40px;
@@ -113,11 +116,34 @@ const year = new Date().getFullYear()
   object-fit: cover;
   filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.4));
 }
-.logo-text { font-family: 'Sora', sans-serif; font-weight: 800; font-size: 22px; letter-spacing: -0.02em; color: #fff; }
+.logo-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.logo-text {
+  font-family: 'Sora', sans-serif;
+  font-weight: 800;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  color: #fff;
+  line-height: 1;
+}
+.logo-subtext {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--c-footer-muted);
+}
 
 .brand-text { font-size: 14.5px; line-height: 1.7; margin-bottom: 24px; color: var(--c-footer-muted); }
 
-.socials { display: flex; gap: 10px; }
+.socials {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
 .social {
   width: 40px;
   height: 40px;
@@ -162,7 +188,80 @@ const year = new Date().getFullYear()
 }
 
 @media (max-width: 540px) {
-  .footer-top { grid-template-columns: 1fr; gap: 32px; }
-  .footer-bottom { flex-direction: column; align-items: flex-start; }
+  .footer {
+    padding: 64px 0 28px;
+  }
+  .footer-top {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 14px;
+    padding-bottom: 32px;
+  }
+  .brand-col {
+    grid-column: 1 / -1;
+    padding: 22px 18px 20px;
+    border-radius: 24px;
+    background:
+      linear-gradient(180deg, rgba(99, 102, 241, 0.14), transparent 42%),
+      rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+  }
+  .logo {
+    width: 100%;
+    align-items: flex-start;
+  }
+  .logo-text {
+    font-size: 20px;
+  }
+  .brand-text {
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
+  .socials {
+    gap: 8px;
+  }
+  .social {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+  .links-col {
+    gap: 10px;
+    padding: 18px 16px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.025);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    min-width: 0;
+  }
+  .links-col:last-child {
+    grid-column: 1 / -1;
+    background:
+      linear-gradient(180deg, rgba(236, 72, 153, 0.08), transparent 48%),
+      rgba(255, 255, 255, 0.03);
+  }
+  .links-col h4 {
+    margin-bottom: 4px;
+    font-size: 12px;
+    letter-spacing: 0.12em;
+  }
+  .links-col a {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  .footer-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 14px;
+    padding-top: 24px;
+  }
+  .legal {
+    width: 100%;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .legal a {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.04);
+  }
 }
 </style>

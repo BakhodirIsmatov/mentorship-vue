@@ -3,7 +3,10 @@
     <div class="container nav-inner">
       <a href="#top" class="logo" :aria-label="t('nav.home')">
         <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-        <span class="logo-text">Global Mentorship Platform</span>
+        <span class="logo-text">
+          <span>Global Mentorship</span>
+          <span class="logo-text-sub">Platform</span>
+        </span>
       </a>
 
       <nav class="nav-links" :aria-label="t('nav.menu')">
@@ -140,13 +143,16 @@ onBeforeUnmount(() => {
 .navbar {
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 300;
   width: 100%;
+  max-width: 100%;
   background: var(--c-nav-bg);
   backdrop-filter: saturate(180%) blur(20px);
   -webkit-backdrop-filter: saturate(180%) blur(20px);
   border-bottom: 1px solid transparent;
   transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  overflow-x: clip;
+  isolation: isolate;
 }
 .navbar.scrolled {
   background: var(--c-nav-bg-scrolled);
@@ -160,6 +166,8 @@ onBeforeUnmount(() => {
   justify-content: space-between;
   height: var(--nav-height);
   gap: 24px;
+  min-width: 0;
+  overflow: visible;
 }
 
 /* ============ LOGO ============ */
@@ -167,7 +175,9 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  flex-shrink: 0;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
 }
 .logo-img {
   width: 40px;
@@ -179,11 +189,22 @@ onBeforeUnmount(() => {
   filter: drop-shadow(0 4px 10px rgba(15, 23, 42, 0.18));
 }
 .logo-text {
+  display: flex;
+  flex-direction: column;
   font-family: 'Sora', sans-serif;
   font-weight: 800;
   font-size: 20px;
+  line-height: 1.02;
   letter-spacing: -0.02em;
   color: var(--c-text);
+  min-width: 0;
+}
+
+.logo-text-sub {
+  font-size: 0.72em;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  color: var(--c-text-muted);
 }
 
 /* ============ LINKS ============ */
@@ -253,6 +274,8 @@ onBeforeUnmount(() => {
   display: flex;
   align-items: center;
   gap: 8px;
+  flex-shrink: 0;
+  min-width: fit-content;
 }
 
 .icon-btn {
@@ -307,7 +330,7 @@ onBeforeUnmount(() => {
   display: flex;
   flex-direction: column;
   gap: 2px;
-  z-index: 50;
+  z-index: 400;
   animation: fadeDown 0.18s var(--ease-out);
 }
 @keyframes fadeDown {
@@ -376,6 +399,8 @@ onBeforeUnmount(() => {
   top: 100%;
   left: 0;
   right: 0;
+  width: 100%;
+  max-width: 100vw;
   background: var(--c-nav-bg-scrolled);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -389,6 +414,7 @@ onBeforeUnmount(() => {
   transition: max-height 0.3s var(--ease-out), padding 0.3s var(--ease-out);
   padding-top: 0;
   padding-bottom: 0;
+  z-index: 350;
 }
 .mobile-menu.open {
   max-height: 420px;
@@ -415,6 +441,15 @@ onBeforeUnmount(() => {
   .nav-actions { gap: 6px; }
   .menu-btn { display: flex; }
   .nav-cta { display: none; }
+  .logo { flex: 1; }
+  .logo-text {
+    font-size: 16px;
+    line-height: 1;
+  }
+  .logo-text-sub {
+    font-size: 0.68em;
+    margin-top: 2px;
+  }
 
   /* Mobil — lang button only shows the globe icon */
   .lang-btn {
@@ -430,7 +465,7 @@ onBeforeUnmount(() => {
 
 @media (max-width: 380px) {
   .logo-img { width: 34px; height: 34px; }
-  .logo-text { font-size: 18px; }
+  .logo-text { font-size: 14px; }
   .icon-btn { height: 36px; min-width: 36px; }
   .lang-btn { width: 36px; }
   .menu-btn { width: 36px; height: 36px; }

@@ -563,4 +563,38 @@ onMounted(async () => {
   .stat-value { font-size: clamp(28px, 10vw, 40px); }
   .stat-label { min-height: auto; }
 }
+
+:root[data-theme='dark'] .stats-card {
+  background: linear-gradient(180deg, rgba(19, 19, 37, 0.94), rgba(14, 14, 28, 0.92));
+  border-color: rgba(99, 102, 241, 0.16);
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.36);
+}
+
+:root[data-theme='dark'] .stats-card::after {
+  background: linear-gradient(120deg, transparent 0%, rgba(255, 255, 255, 0.08) 18%, transparent 36%);
+}
+
+:root[data-theme='dark'] .stat {
+  background: linear-gradient(180deg, rgba(24, 24, 44, 0.96), rgba(17, 17, 32, 0.92));
+  border-color: rgba(99, 102, 241, 0.12);
+}
+
+:root[data-theme='dark'] .stat:hover {
+  border-color: rgba(99, 102, 241, 0.22);
+  box-shadow: 0 18px 34px rgba(0, 0, 0, 0.32);
+}
+
+:root[data-theme='dark'] .stat-summary-card {
+  background:
+    linear-gradient(135deg, rgba(99, 102, 241, 0.24), rgba(236, 72, 153, 0.12)),
+    linear-gradient(180deg, rgba(24, 24, 44, 0.98), rgba(17, 17, 32, 0.94));
+  border-color: rgba(99, 102, 241, 0.18);
+}
+
+:root[data-theme='dark'] .stat-chip,
+:root[data-theme='dark'] .stat-kicker {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(148, 163, 184, 0.12);
+  color: var(--c-text);
+}
 </style>

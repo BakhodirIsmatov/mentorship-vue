@@ -10,31 +10,45 @@
         <p class="section-subtitle">{{ t('testimonials.subtitle') }}</p>
       </header>
 
-      <div class="grid">
-        <article
-          v-for="(t2, i) in items"
-          :key="t2.name"
-          class="t-card"
-          :class="[t2.featured ? 'featured' : '', `sr-up sr-delay-${i + 1}`]"
-        >
-          <div class="t-stars">
-            <svg v-for="n in 5" :key="n" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
-              <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
-            </svg>
-          </div>
-
-          <blockquote class="t-quote">{{ t(t2.quoteKey) }}</blockquote>
-
-          <div class="t-foot">
-            <div class="t-avatar" :style="{ background: t2.color }">{{ t2.initials }}</div>
-            <div>
-              <div class="t-name">{{ t2.name }}</div>
-              <div class="t-role">{{ t(t2.roleKey) }}</div>
+      <div class="testimonials-wrap" :class="{ 'is-mobile-carousel': isMobile }">
+        <div class="grid" :style="mobileTrackStyle">
+          <article
+            v-for="(t2, i) in items"
+            :key="t2.name"
+            class="t-card"
+            :class="[t2.featured ? 'featured' : '', !isMobile ? `sr-up sr-delay-${i + 1}` : '']"
+          >
+            <div class="t-stars">
+              <svg v-for="n in 5" :key="n" viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+                <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+              </svg>
             </div>
-          </div>
 
-          <div v-if="t2.featured" class="t-quote-mark" aria-hidden="true">"</div>
-        </article>
+            <blockquote class="t-quote">{{ t(t2.quoteKey) }}</blockquote>
+
+            <div class="t-foot">
+              <div class="t-avatar" :style="{ background: t2.color }">{{ t2.initials }}</div>
+              <div>
+                <div class="t-name">{{ t2.name }}</div>
+                <div class="t-role">{{ t(t2.roleKey) }}</div>
+              </div>
+            </div>
+
+            <div v-if="t2.featured" class="t-quote-mark" aria-hidden="true">"</div>
+          </article>
+        </div>
+
+        <div v-if="isMobile" class="t-dots" aria-label="Testimonials navigation">
+          <button
+            v-for="(_, i) in items"
+            :key="`dot-${i}`"
+            type="button"
+            class="t-dot"
+            :class="{ active: i === activeIndex }"
+            :aria-label="`Go to testimonial ${i + 1}`"
+            @click="goTo(i)"
+          />
+        </div>
       </div>
     </div>
   </section>
@@ -42,6 +56,10 @@
 
 <script setup lang="ts">
 const { t } = useI18n()
+const activeIndex = ref(0)
+const isMobile = ref(false)
+let rotateTimer: ReturnType<typeof setInterval> | null = null
+let mediaQuery: MediaQueryList | null = null
 
 const items = [
   {
@@ -72,9 +90,52 @@ const items = [
     featured: false
   }
 ] as const
+
+const mobileTrackStyle = computed(() => {
+  if (!isMobile.value) return undefined
+  return { transform: `translateX(-${activeIndex.value * 100}%)` }
+})
+
+const stopRotation = () => {
+  if (rotateTimer) {
+    clearInterval(rotateTimer)
+    rotateTimer = null
+  }
+}
+
+const startRotation = () => {
+  stopRotation()
+  if (!isMobile.value) return
+  rotateTimer = setInterval(() => {
+    activeIndex.value = (activeIndex.value + 1) % items.length
+  }, 4500)
+}
+
+const goTo = (index: number) => {
+  activeIndex.value = index
+  startRotation()
+}
+
+const syncViewport = () => {
+  isMobile.value = mediaQuery?.matches ?? false
+  activeIndex.value = 0
+  startRotation()
+}
+
+onMounted(() => {
+  mediaQuery = window.matchMedia('(max-width: 640px)')
+  mediaQuery.addEventListener('change', syncViewport)
+  syncViewport()
+})
+
+onBeforeUnmount(() => {
+  mediaQuery?.removeEventListener('change', syncViewport)
+  stopRotation()
+})
 </script>
 
 <style scoped>
+.testimonials-wrap { position: relative; }
 .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; align-items: stretch; }
 
 .t-card {
@@ -142,8 +203,39 @@ const items = [
 }
 
 @media (max-width: 640px) {
-  .grid { grid-template-columns: 1fr; }
-  .t-card.featured { grid-column: auto; }
+  .testimonials-wrap {
+    overflow: hidden;
+    padding-bottom: 18px;
+  }
+  .grid {
+    display: flex;
+    gap: 0;
+    transition: transform 420ms cubic-bezier(0.22, 1, 0.36, 1);
+    will-change: transform;
+  }
+  .t-card {
+    min-width: 100%;
+    flex: 0 0 100%;
+  }
+  .t-card.featured { grid-column: auto; transform: none; }
+  .t-card.featured:hover { transform: translateY(-6px); }
   .t-quote-mark { font-size: 120px; }
+  .t-dots {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 18px;
+  }
+  .t-dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: rgba(148, 163, 184, 0.36);
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .t-dot.active {
+    background: var(--c-primary);
+    transform: scale(1.15);
+  }
 }
 </style>

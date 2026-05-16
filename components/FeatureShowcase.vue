@@ -185,7 +185,7 @@ onUnmounted(() => {
 .showcase { padding: 100px 0; position: relative; }
 .showcase + .showcase { padding-top: 0; }
 
-.showcase-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.showcase-inner { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; min-width: 0; }
 .showcase-certificate .showcase-inner {
   grid-template-columns: minmax(0, 1.28fr) minmax(320px, 0.72fr);
   gap: 28px;
@@ -258,6 +258,8 @@ onUnmounted(() => {
 }
 
 .visual-col { position: relative; }
+.text-col,
+.visual-col { min-width: 0; }
 .visual-col-certificate {
   max-width: 760px;
   width: 100%;
@@ -590,5 +592,26 @@ onUnmounted(() => {
 .lightbox-fade-leave-to .cert-lightbox-inner {
   opacity: 0;
   transform: scale(0.96);
+}
+
+:root[data-theme='dark'] .text-col-certificate {
+  background:
+    linear-gradient(90deg, rgba(99, 102, 241, 0.04), rgba(19, 19, 37, 0.88) 18%, rgba(19, 19, 37, 0.96) 100%);
+}
+
+:root[data-theme='dark'] .text-col-certificate::before {
+  background:
+    radial-gradient(circle at left center, rgba(99, 102, 241, 0.18), transparent 30%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0));
+}
+
+:root[data-theme='dark'] .cert-zoom-cta {
+  background: rgba(10, 10, 20, 0.74);
+  color: #fff;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.28);
+}
+
+:root[data-theme='dark'] .cert-lightbox-inner {
+  background: #0f1220;
 }
 </style>
