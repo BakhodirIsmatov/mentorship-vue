@@ -410,7 +410,7 @@ const onSubmit = async () => {
 
   state.value = 'loading'
   try {
-    const data = await $fetch<{ url: string }>('https://api.global-mentorship.uz/certificate/verify', {
+    const data = await $fetch<{ certificate_url?: string; url?: string }>('/api/certificates/verify', {
       method: 'POST',
       body: {
         certificate_number: certNumber.value,
@@ -419,10 +419,13 @@ const onSubmit = async () => {
       }
     })
 
-    if (!data?.certificate_url) {
+    const resolvedUrl = data?.certificate_url || data?.url
+
+    if (!resolvedUrl) {
       throw createError({ statusCode: 404 })
     }
-    certificateUrl.value = data.certificate_url
+
+    certificateUrl.value = resolvedUrl
     state.value = 'success'
   } catch (e: unknown) {
     const status = (e as { statusCode?: number; response?: { status?: number } })?.statusCode
