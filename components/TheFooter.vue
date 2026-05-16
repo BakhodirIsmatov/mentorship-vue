@@ -48,7 +48,7 @@
 
         <nav class="links-col" :aria-label="t('footer.companyCol')">
           <h4>{{ t('footer.companyCol') }}</h4>
-          <a href="#">{{ t('footer.companyLink1') }}</a>
+          <NuxtLink to="/about">{{ t('footer.companyLink1') }}</NuxtLink>
           <a href="#">{{ t('footer.companyLink2') }}</a>
           <a href="#">{{ t('footer.companyLink3') }}</a>
           <a href="#">{{ t('footer.companyLink4') }}</a>

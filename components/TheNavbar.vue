@@ -1,22 +1,27 @@
 <template>
   <header class="navbar" :class="{ scrolled: isScrolled, 'menu-open': menuOpen }">
     <div class="container nav-inner">
-      <a href="#top" class="logo" :aria-label="t('nav.home')">
+      <NuxtLink to="/" class="logo" :aria-label="t('nav.home')">
         <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
         <span class="logo-text">
           <span>Global Mentorship</span>
           <span class="logo-text-sub">Platform</span>
         </span>
-      </a>
+      </NuxtLink>
 
       <nav class="nav-links" :aria-label="t('nav.menu')">
-        <a href="#process">{{ t('nav.process') }}</a>
-        <a href="#audience">{{ t('nav.audience') }}</a>
-        <!-- <a href="#verify" class="nav-link-verify">
-          <span class="nav-link-dot" />
-          {{ t('nav.verify') }}
-        </a> -->
-        <a href="#faq">{{ t('nav.faq') }}</a>
+        <template v-if="isAboutPage">
+          <a href="#story">{{ t('nav.story') }}</a>
+          <a href="#principles">{{ t('nav.principles') }}</a>
+          <a href="#journey">{{ t('nav.journey') }}</a>
+          <NuxtLink to="/">{{ t('nav.home') }}</NuxtLink>
+        </template>
+        <template v-else>
+          <a href="#process">{{ t('nav.process') }}</a>
+          <a href="#audience">{{ t('nav.audience') }}</a>
+          <NuxtLink to="/about">{{ t('nav.about') }}</NuxtLink>
+          <a href="#faq">{{ t('nav.faq') }}</a>
+        </template>
       </nav>
 
       <div class="nav-actions">
@@ -71,7 +76,7 @@
           </svg>
         </button>
 
-        <a href="#download" class="btn btn-primary nav-cta">{{ t('nav.download') }}</a>
+        <a :href="isAboutPage ? '/#download' : '#download'" class="btn btn-primary nav-cta">{{ t('nav.download') }}</a>
 
         <button
           class="menu-btn"
@@ -85,17 +90,29 @@
     </div>
 
     <div class="mobile-menu" :class="{ open: menuOpen }">
-      <a @click="menuOpen = false" href="#features">{{ t('nav.features') }}</a>
-      <a @click="menuOpen = false" href="#process">{{ t('nav.process') }}</a>
-      <a @click="menuOpen = false" href="#audience">{{ t('nav.audience') }}</a>
-      <a @click="menuOpen = false" href="#verify" class="mobile-verify">
-        <span class="nav-link-dot" />
-        {{ t('nav.verify') }}
-      </a>
-      <a @click="menuOpen = false" href="#faq">{{ t('nav.faq') }}</a>
-      <a @click="menuOpen = false" href="#download" class="btn btn-primary mobile-cta">
-        {{ t('nav.download') }}
-      </a>
+      <template v-if="isAboutPage">
+        <a @click="menuOpen = false" href="#story">{{ t('nav.story') }}</a>
+        <a @click="menuOpen = false" href="#principles">{{ t('nav.principles') }}</a>
+        <a @click="menuOpen = false" href="#journey">{{ t('nav.journey') }}</a>
+        <NuxtLink @click="menuOpen = false" to="/">{{ t('nav.home') }}</NuxtLink>
+        <a @click="menuOpen = false" href="/#download" class="btn btn-primary mobile-cta">
+          {{ t('nav.download') }}
+        </a>
+      </template>
+      <template v-else>
+        <a @click="menuOpen = false" href="#features">{{ t('nav.features') }}</a>
+        <a @click="menuOpen = false" href="#process">{{ t('nav.process') }}</a>
+        <a @click="menuOpen = false" href="#audience">{{ t('nav.audience') }}</a>
+        <NuxtLink @click="menuOpen = false" to="/about">{{ t('nav.about') }}</NuxtLink>
+        <a @click="menuOpen = false" href="#verify" class="mobile-verify">
+          <span class="nav-link-dot" />
+          {{ t('nav.verify') }}
+        </a>
+        <a @click="menuOpen = false" href="#faq">{{ t('nav.faq') }}</a>
+        <a @click="menuOpen = false" href="#download" class="btn btn-primary mobile-cta">
+          {{ t('nav.download') }}
+        </a>
+      </template>
     </div>
   </header>
 </template>
@@ -103,11 +120,13 @@
 <script setup lang="ts">
 const { t, locale, setLocale, locales } = useI18n()
 const { theme, toggleTheme } = useTheme()
+const route = useRoute()
 
 const isScrolled = ref(false)
 const menuOpen = ref(false)
 const langOpen = ref(false)
 const langWrap = ref<HTMLElement | null>(null)
+const isAboutPage = computed(() => route.path === '/about')
 
 const currentLocale = computed(
   () => locales.find((l) => l.code === locale.value) ?? locales[0]
