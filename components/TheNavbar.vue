@@ -1,120 +1,123 @@
 <template>
-  <header class="navbar" :class="{ scrolled: isScrolled, 'menu-open': menuOpen }">
-    <div class="container nav-inner">
-      <NuxtLink to="/" class="logo" :aria-label="t('nav.home')">
-        <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
-        <span class="logo-text">
-          <span>Global Mentorship</span>
-          <span class="logo-text-sub">Platform</span>
-        </span>
-      </NuxtLink>
+  <div class="navbar-wrap">
+    <header class="navbar" :class="{ scrolled: isScrolled, 'menu-open': menuOpen }">
+      <div class="container nav-inner">
+        <NuxtLink to="/" class="logo" :aria-label="t('nav.home')">
+          <img src="/logo.png" alt="" class="logo-img" width="40" height="40" decoding="async" />
+          <span class="logo-text">
+            <span>Global Mentorship</span>
+            <span class="logo-text-sub">Platform</span>
+          </span>
+        </NuxtLink>
 
-      <nav class="nav-links" :aria-label="t('nav.menu')">
-        <template v-if="isAboutPage">
-          <a href="#story">{{ t('nav.story') }}</a>
-          <a href="#principles">{{ t('nav.principles') }}</a>
-          <a href="#journey">{{ t('nav.journey') }}</a>
-          <NuxtLink to="/">{{ t('nav.home') }}</NuxtLink>
-        </template>
-        <template v-else>
-          <a href="#process">{{ t('nav.process') }}</a>
-          <a href="#audience">{{ t('nav.audience') }}</a>
-          <NuxtLink to="/about">{{ t('nav.about') }}</NuxtLink>
-          <a href="#faq">{{ t('nav.faq') }}</a>
-        </template>
-      </nav>
+        <nav class="nav-links" :aria-label="t('nav.menu')">
+          <template v-if="isAboutPage">
+            <a href="#story">{{ t('nav.story') }}</a>
+            <a href="#principles">{{ t('nav.principles') }}</a>
+            <a href="#journey">{{ t('nav.journey') }}</a>
+            <NuxtLink to="/">{{ t('nav.home') }}</NuxtLink>
+          </template>
+          <template v-else>
+            <a href="#process">{{ t('nav.process') }}</a>
+            <a href="#audience">{{ t('nav.audience') }}</a>
+            <NuxtLink to="/about">{{ t('nav.about') }}</NuxtLink>
+            <a href="#faq">{{ t('nav.faq') }}</a>
+          </template>
+        </nav>
 
-      <div class="nav-actions">
-        <!-- Language switcher -->
-        <div class="lang" ref="langWrap">
+        <div class="nav-actions">
+          <!-- Language switcher -->
+          <div class="lang" ref="langWrap">
+            <button
+              class="icon-btn lang-btn"
+              :aria-label="t('nav.language')"
+              :aria-expanded="langOpen"
+              aria-haspopup="listbox"
+              @click="langOpen = !langOpen"
+            >
+              <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+              </svg>
+              <span>{{ currentLocale.label }}</span>
+              <svg class="caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 12 15 18 9" />
+              </svg>
+            </button>
+            <ul v-show="langOpen" class="lang-menu" role="listbox">
+              <li v-for="l in locales" :key="l.code">
+                <button
+                  role="option"
+                  :aria-selected="locale === l.code"
+                  :class="['lang-item', { active: locale === l.code }]"
+                  @click="pickLocale(l.code)"
+                >
+                  <span class="lang-code">{{ l.label }}</span>
+                  <span class="lang-native">{{ l.native }}</span>
+                  <svg v-if="locale === l.code" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"/>
+                  </svg>
+                </button>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Theme toggle -->
           <button
-            class="icon-btn lang-btn"
-            :aria-label="t('nav.language')"
-            :aria-expanded="langOpen"
-            aria-haspopup="listbox"
-            @click="langOpen = !langOpen"
+            class="icon-btn theme-btn"
+            :aria-label="t('theme.toggle')"
+            @click="toggleTheme"
           >
-            <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9"/>
-              <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>
+            <svg v-if="theme === 'dark'" key="sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="4"/>
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
             </svg>
-            <span>{{ currentLocale.label }}</span>
-            <svg class="caret" viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="6 9 12 15 18 9" />
+            <svg v-else key="moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
             </svg>
           </button>
-          <ul v-show="langOpen" class="lang-menu" role="listbox">
-            <li v-for="l in locales" :key="l.code">
-              <button
-                role="option"
-                :aria-selected="locale === l.code"
-                :class="['lang-item', { active: locale === l.code }]"
-                @click="pickLocale(l.code)"
-              >
-                <span class="lang-code">{{ l.label }}</span>
-                <span class="lang-native">{{ l.native }}</span>
-                <svg v-if="locale === l.code" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </button>
-            </li>
-          </ul>
+
+          <a :href="isAboutPage ? '/#download' : '#download'" class="btn btn-primary nav-cta">{{ t('nav.download') }}</a>
+
+          <button
+            class="menu-btn"
+            :aria-expanded="menuOpen"
+            :aria-label="t('nav.menu')"
+            @click="menuOpen = !menuOpen"
+          >
+            <span /><span /><span />
+          </button>
         </div>
-
-        <!-- Theme toggle -->
-        <button
-          class="icon-btn theme-btn"
-          :aria-label="t('theme.toggle')"
-          @click="toggleTheme"
-        >
-          <svg v-if="theme === 'dark'" key="sun" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="4"/>
-            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>
-          </svg>
-          <svg v-else key="moon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
-          </svg>
-        </button>
-
-        <a :href="isAboutPage ? '/#download' : '#download'" class="btn btn-primary nav-cta">{{ t('nav.download') }}</a>
-
-        <button
-          class="menu-btn"
-          :aria-expanded="menuOpen"
-          :aria-label="t('nav.menu')"
-          @click="menuOpen = !menuOpen"
-        >
-          <span /><span /><span />
-        </button>
       </div>
-    </div>
 
-    <div class="mobile-menu" :class="{ open: menuOpen }">
-      <template v-if="isAboutPage">
-        <a @click="menuOpen = false" href="#story">{{ t('nav.story') }}</a>
-        <a @click="menuOpen = false" href="#principles">{{ t('nav.principles') }}</a>
-        <a @click="menuOpen = false" href="#journey">{{ t('nav.journey') }}</a>
-        <NuxtLink @click="menuOpen = false" to="/">{{ t('nav.home') }}</NuxtLink>
-        <a @click="menuOpen = false" href="/#download" class="btn btn-primary mobile-cta">
-          {{ t('nav.download') }}
-        </a>
-      </template>
-      <template v-else>
-        <a @click="menuOpen = false" href="#features">{{ t('nav.features') }}</a>
-        <a @click="menuOpen = false" href="#process">{{ t('nav.process') }}</a>
-        <a @click="menuOpen = false" href="#audience">{{ t('nav.audience') }}</a>
-        <NuxtLink @click="menuOpen = false" to="/about">{{ t('nav.about') }}</NuxtLink>
-        <a @click="menuOpen = false" href="#verify" class="mobile-verify">
-          <span class="nav-link-dot" />
-          {{ t('nav.verify') }}
-        </a>
-        <a @click="menuOpen = false" href="#faq">{{ t('nav.faq') }}</a>
-        <a @click="menuOpen = false" href="#download" class="btn btn-primary mobile-cta">
-          {{ t('nav.download') }}
-        </a>
-      </template>
-    </div>
-  </header>
+      <div class="mobile-menu" :class="{ open: menuOpen }">
+        <template v-if="isAboutPage">
+          <a @click="menuOpen = false" href="#story">{{ t('nav.story') }}</a>
+          <a @click="menuOpen = false" href="#principles">{{ t('nav.principles') }}</a>
+          <a @click="menuOpen = false" href="#journey">{{ t('nav.journey') }}</a>
+          <NuxtLink @click="menuOpen = false" to="/">{{ t('nav.home') }}</NuxtLink>
+          <a @click="menuOpen = false" href="/#download" class="btn btn-primary mobile-cta">
+            {{ t('nav.download') }}
+          </a>
+        </template>
+        <template v-else>
+          <a @click="menuOpen = false" href="#features">{{ t('nav.features') }}</a>
+          <a @click="menuOpen = false" href="#process">{{ t('nav.process') }}</a>
+          <a @click="menuOpen = false" href="#audience">{{ t('nav.audience') }}</a>
+          <NuxtLink @click="menuOpen = false" to="/about">{{ t('nav.about') }}</NuxtLink>
+          <a @click="menuOpen = false" href="#verify" class="mobile-verify">
+            <span class="nav-link-dot" />
+            {{ t('nav.verify') }}
+          </a>
+          <a @click="menuOpen = false" href="#faq">{{ t('nav.faq') }}</a>
+          <a @click="menuOpen = false" href="#download" class="btn btn-primary mobile-cta">
+            {{ t('nav.download') }}
+          </a>
+        </template>
+      </div>
+    </header>
+    <div class="navbar-spacer" aria-hidden="true" />
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -159,9 +162,16 @@ onBeforeUnmount(() => {
 </script>
 
 <style scoped>
+.navbar-wrap {
+  position: relative;
+  z-index: 300;
+}
+
 .navbar {
-  position: sticky;
+  position: fixed;
   top: 0;
+  left: 0;
+  right: 0;
   z-index: 300;
   width: 100%;
   max-width: 100%;
@@ -172,6 +182,10 @@ onBeforeUnmount(() => {
   transition: background 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
   overflow-x: clip;
   isolation: isolate;
+}
+
+.navbar-spacer {
+  height: var(--nav-height);
 }
 .navbar.scrolled {
   background: var(--c-nav-bg-scrolled);

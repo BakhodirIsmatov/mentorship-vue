@@ -94,8 +94,8 @@
               @click="openLightbox"
             >
               <img
-                src="/certificate.png"
-                alt="Digital certificate preview"
+                :src="certificateImageSrc"
+                :alt="t('showcase2.title')"
                 class="cert-image"
                 decoding="async"
               />
@@ -138,8 +138,8 @@
 
         <div class="cert-lightbox-inner">
           <img
-            src="/certificate.png"
-            alt="Digital certificate preview"
+            :src="certificateImageSrc"
+            :alt="t('showcase2.title')"
             class="cert-lightbox-image"
             decoding="async"
           />
@@ -156,9 +156,14 @@ const props = defineProps<{
   ns: 'showcase1' | 'showcase2'
 }>()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 const isLightboxOpen = ref(false)
 const isCertificate = computed(() => props.variant === 'certificate')
+const certificateImageSrc = computed(() => {
+  if (locale.value === 'en') return '/en.png'
+  if (locale.value === 'ru') return '/ru.png'
+  return '/certificate.png'
+})
 
 const setBodyLock = (locked: boolean) => {
   if (!import.meta.client) return

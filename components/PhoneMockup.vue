@@ -1,7 +1,7 @@
 <template>
   <div class="phone-fan-wrap">
     <!-- ==================== TAB SWITCHER ==================== -->
-    <div class="tabs" role="tablist" aria-label="Foydalanuvchi turi">
+    <div class="tabs" role="tablist" :aria-label="t('phoneUi.userType')">
       <button
         v-for="t in tabs"
         :key="t.id"
@@ -40,10 +40,10 @@
               <template v-if="s.id === 'auth'">
                 <div class="scn">
                   <div class="auth-logo"><span>U</span></div>
-                  <h3 class="scn-title">Tizimga kirish</h3>
-                  <p class="scn-sub">Telefon raqamingizni kiriting<br />va davom eting</p>
+                  <h3 class="scn-title">{{ t('phoneUi.authTitle') }}</h3>
+                  <p class="scn-sub">{{ t('phoneUi.authSub1') }}<br />{{ t('phoneUi.authSub2') }}</p>
 
-                  <label class="scn-label">Telefon raqam</label>
+                  <label class="scn-label">{{ t('phoneUi.phoneLabel') }}</label>
                   <div class="phone-row">
                     <button class="phone-flag" type="button" tabindex="-1">
                       <svg viewBox="0 0 30 20" width="20" height="13" aria-hidden="true">
@@ -61,10 +61,10 @@
                     <span class="phone-number">90 123 45 67</span>
                   </div>
 
-                  <button class="scn-btn">SMS kod yuborish</button>
+                  <button class="scn-btn">{{ t('phoneUi.sendSms') }}</button>
 
                   <p class="scn-legal">
-                    Davom etish bilan <a>foydalanish shartlari</a>ga rozisiz
+                    {{ t('phoneUi.authLegal1') }} <a>{{ t('phoneUi.authLegal2') }}</a>{{ t('phoneUi.authLegal3') }}
                   </p>
                 </div>
               </template>
@@ -72,17 +72,17 @@
               <!-- ===================== SHOGIRD: 2. OTP ===================== -->
               <template v-else-if="s.id === 'otp'">
                 <div class="scn">
-                  <button class="scn-back" type="button" tabindex="-1" aria-label="Orqaga">
+                  <button class="scn-back" type="button" tabindex="-1" :aria-label="t('phoneUi.back')">
                     <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <line x1="19" y1="12" x2="5" y2="12" />
                       <polyline points="12 19 5 12 12 5" />
                     </svg>
                   </button>
 
-                  <h3 class="scn-title">Tasdiqlash kodi</h3>
+                  <h3 class="scn-title">{{ t('phoneUi.otpTitle') }}</h3>
                   <p class="scn-sub">
                     <strong>+998 90 123 45 67</strong><br />
-                    raqamiga SMS kod yubordik
+                    {{ t('phoneUi.otpSent') }}
                   </p>
 
                   <div class="otp-boxes" aria-hidden="true">
@@ -102,9 +102,9 @@
                     <span>01:48</span>
                   </div>
 
-                  <button class="scn-btn">Tasdiqlash</button>
+                  <button class="scn-btn">{{ t('phoneUi.confirm') }}</button>
 
-                  <p class="scn-legal">Kod kelmadimi? <a>Qayta yuborish</a></p>
+                  <p class="scn-legal">{{ t('phoneUi.otpMissing') }} <a>{{ t('phoneUi.resend') }}</a></p>
                 </div>
               </template>
 
@@ -112,28 +112,28 @@
               <template v-else-if="s.id === 'cert'">
                 <div class="scn">
                   <div class="scn-header">
-                    <button class="scn-back" type="button" tabindex="-1" aria-label="Orqaga">
+                    <button class="scn-back" type="button" tabindex="-1" :aria-label="t('phoneUi.back')">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12" />
                         <polyline points="12 19 5 12 12 5" />
                       </svg>
                     </button>
-                    <h3 class="scn-title scn-title-sm">Sertifikat so'rovi</h3>
+                    <h3 class="scn-title scn-title-sm">{{ t('phoneUi.certRequestTitle') }}</h3>
                     <span />
                   </div>
 
-                  <p class="scn-sub scn-sub-tight">Mentor ma'lumotlarini to'ldiring</p>
+                  <p class="scn-sub scn-sub-tight">{{ t('phoneUi.certRequestSub') }}</p>
 
                   <div class="form-field">
-                    <label>Mentor ismi</label>
+                    <label>{{ t('phoneUi.mentorName') }}</label>
                     <div class="form-input">Akmal</div>
                   </div>
                   <div class="form-field">
-                    <label>Mentor familiyasi</label>
+                    <label>{{ t('phoneUi.mentorSurname') }}</label>
                     <div class="form-input">Karimov</div>
                   </div>
                   <div class="form-field">
-                    <label>Telefon raqam</label>
+                    <label>{{ t('phoneUi.phoneLabel') }}</label>
                     <div class="form-input form-input-phone">
                       <span class="mini-flag">
                         <svg viewBox="0 0 30 20" width="14" height="9" aria-hidden="true">
@@ -153,10 +153,10 @@
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
                     </span>
-                    <span>Foydalanish shartlari va maxfiylik bilan tanishdim</span>
+                    <span>{{ t('phoneUi.checkbox') }}</span>
                   </label>
 
-                  <button class="scn-btn">So'rov yaratish</button>
+                  <button class="scn-btn">{{ t('phoneUi.createRequest') }}</button>
                 </div>
               </template>
 
@@ -166,10 +166,10 @@
                   <div class="home-header">
                     <div class="home-avatar">B</div>
                     <div class="home-greet">
-                      <small>Xush kelibsiz,</small>
+                      <small>{{ t('phoneUi.welcomeSmall') }}</small>
                       <strong>Bahodir</strong>
                     </div>
-                    <button class="home-bell" type="button" tabindex="-1" aria-label="Bildirishnomalar">
+                    <button class="home-bell" type="button" tabindex="-1" :aria-label="t('phoneUi.notifications')">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9" />
                         <path d="M13.7 21a2 2 0 0 1-3.4 0" />
@@ -180,8 +180,8 @@
 
                   <div class="home-banner">
                     <div class="banner-text">
-                      <strong>Mahoratingizni</strong>
-                      <span>sertifikatlang</span>
+                      <strong>{{ t('phoneUi.bannerStrong') }}</strong>
+                      <span>{{ t('phoneUi.bannerLine') }}</span>
                     </div>
                   </div>
 
@@ -193,8 +193,8 @@
                       </svg>
                     </div>
                     <div class="cta-body">
-                      <strong>Yangi sertifikat olish</strong>
-                      <small>So'rov qoldiring va sertifikat oling</small>
+                      <strong>{{ t('phoneUi.newCertificate') }}</strong>
+                      <small>{{ t('phoneUi.newCertificateSub') }}</small>
                     </div>
                     <svg class="cta-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="9 6 15 12 9 18" />
@@ -202,8 +202,8 @@
                   </button>
 
                   <div class="home-section-row">
-                    <h6>So'rovlaringiz</h6>
-                    <span>Barchasi</span>
+                    <h6>{{ t('phoneUi.requests') }}</h6>
+                    <span>{{ t('phoneUi.all') }}</span>
                   </div>
 
                   <div class="order-card">
@@ -211,37 +211,37 @@
                       <span class="order-num">#230</span>
                       <span class="order-status">
                         <span class="dot-amber" />
-                        Kutilmoqda
+                        {{ t('phoneUi.pending') }}
                       </span>
                     </div>
                     <div class="order-name">BAHODIR ISMATOV</div>
-                    <div class="order-meta">To'lov holati: <strong>Kutilmoqda</strong></div>
+                    <div class="order-meta">{{ t('phoneUi.paymentStatus') }}: <strong>{{ t('phoneUi.pending') }}</strong></div>
                     <div class="order-bottom">
                       <span class="order-amount">49 000 <small>UZS</small></span>
-                      <button class="order-btn" type="button" tabindex="-1">To'lash</button>
+                      <button class="order-btn" type="button" tabindex="-1">{{ t('phoneUi.pay') }}</button>
                     </div>
                   </div>
 
-                  <nav class="tabbar" aria-label="Asosiy menyu">
+                  <nav class="tabbar" :aria-label="t('phoneUi.mainMenu')">
                     <button class="tab active" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z" />
                       </svg>
-                      <span>Bosh sahifa</span>
+                      <span>{{ t('phoneUi.homeTab') }}</span>
                     </button>
                     <button class="tab" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 11h6M9 15h6M5 7h14l-1 14H6z" />
                         <path d="M9 7V5a3 3 0 0 1 6 0v2" />
                       </svg>
-                      <span>Buyurtmalar</span>
+                      <span>{{ t('phoneUi.ordersTab') }}</span>
                     </button>
                     <button class="tab" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
-                      <span>Profil</span>
+                      <span>{{ t('phoneUi.profileTab') }}</span>
                     </button>
                   </nav>
                 </div>
@@ -251,17 +251,17 @@
               <template v-else-if="s.id === 'pay'">
                 <div class="scn">
                   <div class="scn-header">
-                    <button class="scn-back" type="button" tabindex="-1" aria-label="Orqaga">
+                    <button class="scn-back" type="button" tabindex="-1" :aria-label="t('phoneUi.back')">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12" />
                         <polyline points="12 19 5 12 12 5" />
                       </svg>
                     </button>
-                    <h3 class="scn-title scn-title-sm">To'lov</h3>
+                    <h3 class="scn-title scn-title-sm">{{ t('phoneUi.paymentTitle') }}</h3>
                     <span />
                   </div>
 
-                  <p class="scn-sub scn-sub-tight">Buyurtma <strong>#230</strong> uchun</p>
+                  <p class="scn-sub scn-sub-tight">{{ t('phoneUi.orderFor') }} <strong>#230</strong> {{ t('phoneUi.orderForSuffix') }}</p>
 
                   <div class="pay-card">
                     <div class="pay-card-top">
@@ -276,21 +276,21 @@
                     <div class="pay-card-amount">49 000 <small>UZS</small></div>
                     <div class="pay-card-pan">**** **** **** ****</div>
                     <div class="pay-card-bottom">
-                      <small>Yoki naqd / hamyon</small>
+                      <small>{{ t('phoneUi.cashOrWallet') }}</small>
                       <span class="pay-brand">VISA</span>
                     </div>
                   </div>
 
                   <div class="form-field">
-                    <label>Karta raqami</label>
+                    <label>{{ t('phoneUi.cardNumber') }}</label>
                     <div class="form-input">8600 1234 5678 9012</div>
                   </div>
                   <div class="form-field">
-                    <label>Amal qilish muddati</label>
+                    <label>{{ t('phoneUi.cardExpiry') }}</label>
                     <div class="form-input">12 / 28</div>
                   </div>
 
-                  <button class="scn-btn">OTP kod yuborish</button>
+                  <button class="scn-btn">{{ t('phoneUi.sendOtp') }}</button>
                 </div>
               </template>
 
@@ -298,8 +298,8 @@
               <template v-else-if="s.id === 'ustoz-home'">
                 <div class="scn scn-ustoz-home">
                   <div class="ustoz-welcome">
-                    <strong>Xush kelibsiz!</strong>
-                    <small>Oxirgi faoliyatingiz va progressni shu yerda kuzating.</small>
+                    <strong>{{ t('phoneUi.mentorWelcome') }}</strong>
+                    <small>{{ t('phoneUi.mentorWelcomeSub') }}</small>
                   </div>
 
                   <button class="ustoz-cta" type="button" tabindex="-1">
@@ -311,15 +311,15 @@
                       </svg>
                     </div>
                     <div class="cta-body">
-                      <strong>Sertifikat uchun so'rov yar...</strong>
-                      <small>Mentor tasdig'i uchun yangi so'rov ni...</small>
+                      <strong>{{ t('phoneUi.mentorCtaTitle') }}</strong>
+                      <small>{{ t('phoneUi.mentorCtaSub') }}</small>
                     </div>
                     <svg class="cta-arrow" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="9 6 15 12 9 18" />
                     </svg>
                   </button>
 
-                  <h6 class="ustoz-section">Yaqin so'rovlar</h6>
+                  <h6 class="ustoz-section">{{ t('phoneUi.recentRequests') }}</h6>
 
                   <div class="ustoz-order">
                     <div class="ustoz-order-top">
@@ -330,49 +330,49 @@
                         </svg>
                         #232
                       </span>
-                      <span class="badge-pending">Kutilmoqda</span>
+                      <span class="badge-pending">{{ t('phoneUi.pending') }}</span>
                     </div>
 
                     <div class="ustoz-amount">49000 <small>UZS</small></div>
 
-                    <div class="ustoz-row">Shogird: <strong>BURXON DAVRONOV</strong></div>
-                    <div class="ustoz-row">Telefon: <strong>+998888939402</strong></div>
+                    <div class="ustoz-row">{{ t('phoneUi.student') }}: <strong>BURXON DAVRONOV</strong></div>
+                    <div class="ustoz-row">{{ t('phoneUi.phone') }}: <strong>+998888939402</strong></div>
                     <div class="ustoz-row">
-                      To'lov holati: <strong class="paid">Muvaffaqiyatli</strong>
+                      {{ t('phoneUi.paymentStatus') }}: <strong class="paid">{{ t('phoneUi.successful') }}</strong>
                     </div>
 
                     <div class="ustoz-msg">
-                      "Assalomu alaykum, Ustoz..."
+                      "{{ t('phoneUi.mentorMessage') }}"
                     </div>
 
                     <button class="ustoz-confirm" type="button" tabindex="-1">
-                      Tasdiqlash
+                      {{ t('phoneUi.confirmAction') }}
                       <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="9 6 15 12 9 18" />
                       </svg>
                     </button>
                   </div>
 
-                  <nav class="tabbar" aria-label="Asosiy menyu">
+                  <nav class="tabbar" :aria-label="t('phoneUi.mainMenu')">
                     <button class="tab active" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2h-4v-7h-6v7H5a2 2 0 0 1-2-2z" />
                       </svg>
-                      <span>Bosh sahifa</span>
+                      <span>{{ t('phoneUi.homeTab') }}</span>
                     </button>
                     <button class="tab" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M9 11h6M9 15h6M5 7h14l-1 14H6z" />
                         <path d="M9 7V5a3 3 0 0 1 6 0v2" />
                       </svg>
-                      <span>Buyurtmalar</span>
+                      <span>{{ t('phoneUi.ordersTab') }}</span>
                     </button>
                     <button class="tab" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
                         <circle cx="12" cy="7" r="4" />
                       </svg>
-                      <span>Profil</span>
+                      <span>{{ t('phoneUi.profileTab') }}</span>
                     </button>
                   </nav>
                 </div>
@@ -382,13 +382,13 @@
               <template v-else-if="s.id === 'ustoz-confirm'">
                 <div class="scn">
                   <div class="scn-header">
-                    <button class="scn-back" type="button" tabindex="-1" aria-label="Orqaga">
+                    <button class="scn-back" type="button" tabindex="-1" :aria-label="t('phoneUi.back')">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12" />
                         <polyline points="12 19 5 12 12 5" />
                       </svg>
                     </button>
-                    <h3 class="scn-title scn-title-sm">Buyurtmani tasdiqlash</h3>
+                    <h3 class="scn-title scn-title-sm">{{ t('phoneUi.confirmOrderTitle') }}</h3>
                     <span />
                   </div>
 
@@ -398,7 +398,7 @@
                       <line x1="12" y1="16" x2="12" y2="12" />
                       <line x1="12" y1="8" x2="12.01" y2="8" />
                     </svg>
-                    <span>Tasdiqlashdan oldin buyurtma ma'lumotlarini tekshiring.</span>
+                    <span>{{ t('phoneUi.confirmOrderInfo') }}</span>
                   </div>
 
                   <div class="ustoz-order ustoz-order-mini">
@@ -410,17 +410,17 @@
                         </svg>
                         #232
                       </span>
-                      <span class="badge-pending">Kutilmoqda</span>
+                      <span class="badge-pending">{{ t('phoneUi.pending') }}</span>
                     </div>
                     <div class="ustoz-amount">49000 <small>UZS</small></div>
-                    <div class="ustoz-row">Mentor: <strong>BURXON DAVRONOV</strong></div>
-                    <div class="ustoz-row">Telefon: <strong>+998888939402</strong></div>
-                    <div class="ustoz-msg">"Assalomu alaykum..."</div>
+                    <div class="ustoz-row">{{ t('phoneUi.mentor') }}: <strong>BURXON DAVRONOV</strong></div>
+                    <div class="ustoz-row">{{ t('phoneUi.phone') }}: <strong>+998888939402</strong></div>
+                    <div class="ustoz-msg">"{{ t('phoneUi.mentorMessageShort') }}"</div>
                   </div>
 
                   <div class="signature-row">
-                    <span class="sig-title">Imzo</span>
-                    <span class="sig-clear">Imzoni tozalash</span>
+                    <span class="sig-title">{{ t('phoneUi.signature') }}</span>
+                    <span class="sig-clear">{{ t('phoneUi.clearSignature') }}</span>
                   </div>
 
                   <div class="signature-pad">
@@ -435,10 +435,10 @@
                     </svg>
                   </div>
 
-                  <p class="sig-hint">Yuqoridagi maydonga imzo chizing.</p>
+                  <p class="sig-hint">{{ t('phoneUi.signatureHint') }}</p>
 
                   <button class="scn-btn">
-                    Sertifikatni ko'rish
+                    {{ t('phoneUi.viewCertificate') }}
                     <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                       <polyline points="9 6 15 12 9 18" />
                     </svg>
@@ -450,13 +450,13 @@
               <template v-else-if="s.id === 'ustoz-cert'">
                 <div class="scn">
                   <div class="scn-header">
-                    <button class="scn-back" type="button" tabindex="-1" aria-label="Orqaga">
+                    <button class="scn-back" type="button" tabindex="-1" :aria-label="t('phoneUi.back')">
                       <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                         <line x1="19" y1="12" x2="5" y2="12" />
                         <polyline points="12 19 5 12 12 5" />
                       </svg>
                     </button>
-                    <h3 class="scn-title scn-title-sm">Buyurtmani tasdiqlash</h3>
+                    <h3 class="scn-title scn-title-sm">{{ t('phoneUi.confirmOrderTitle') }}</h3>
                     <span />
                   </div>
 
@@ -466,27 +466,27 @@
                       <line x1="12" y1="16" x2="12" y2="12" />
                       <line x1="12" y1="8" x2="12.01" y2="8" />
                     </svg>
-                    <span>Tasdiqlashdan oldin sertifikatni tekshiring.</span>
+                    <span>{{ t('phoneUi.checkCertificateInfo') }}</span>
                   </div>
 
                   <div class="cert-block">
                     <div class="cert-top">
-                      <span>USTOZ</span>
+                      <span>{{ t('phoneUi.mentorUpper') }}</span>
                       <span class="cert-dot" />
-                      <span>SHOGIRD</span>
+                      <span>{{ t('phoneUi.studentUpper') }}</span>
                     </div>
 
-                    <h2 class="cert-big">SERTIFIKAT</h2>
+                    <h2 class="cert-big">{{ t('phoneUi.certificateUpper') }}</h2>
 
                     <p class="cert-greeting">
-                      Aziz shogirdim<br />
+                      {{ t('phoneUi.dearStudent') }}<br />
                       <strong>DAVRONOV BURXON</strong>
                     </p>
 
                     <p class="cert-text">
-                      Ushbu sertifikat ustoz nazorati ostida muvaffaqiyatli
-                      darslarni tugatganligingizni tasdiqlaydi. Sizga keyingi
-                      yutuqlar tilaymiz.
+                      {{ t('phoneUi.certificateText1') }}
+                      {{ t('phoneUi.certificateText2') }}
+                      {{ t('phoneUi.certificateText3') }}
                     </p>
 
                     <div class="cert-row">
@@ -587,7 +587,7 @@
                     </div>
 
                     <div class="cert-meta">
-                      <span>GLOBAL MENTORSHIP PLATFORM</span>
+                      <span>{{ t('phoneUi.platformName') }}</span>
                       <span>10.05.2026 №UZ000232</span>
                     </div>
                   </div>
@@ -598,13 +598,13 @@
                         <line x1="18" y1="6" x2="6" y2="18" />
                         <line x1="6" y1="6" x2="18" y2="18" />
                       </svg>
-                      Rad etish
+                      {{ t('phoneUi.reject') }}
                     </button>
                     <button class="approve-btn" type="button" tabindex="-1">
                       <svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                         <polyline points="20 6 9 17 4 12" />
                       </svg>
-                      Tasdiqlash
+                      {{ t('phoneUi.approve') }}
                     </button>
                   </div>
                 </div>
@@ -618,7 +618,7 @@
     </div>
 
     <!-- ==================== DOTS ==================== -->
-    <div class="dots" role="tablist" aria-label="Ekranlar">
+    <div class="dots" role="tablist" :aria-label="t('phoneUi.screens')">
       <button
         v-for="(s, i) in screens"
         :key="`dot-${activeTab}-${s.id}`"
@@ -635,6 +635,8 @@
 </template>
 
 <script setup lang="ts">
+const { t } = useI18n()
+
 type TabId = 'shogird' | 'ustoz'
 
 interface Screen {
@@ -642,28 +644,28 @@ interface Screen {
   label: string
 }
 
-const tabs: { id: TabId; label: string }[] = [
-  { id: 'shogird', label: 'Shogird' },
-  { id: 'ustoz', label: 'Ustoz' }
-]
+const tabs = computed<{ id: TabId; label: string }[]>(() => [
+  { id: 'shogird', label: t('phoneUi.tabStudent') },
+  { id: 'ustoz', label: t('phoneUi.tabMentor') }
+])
 
-const screensByTab: Record<TabId, Screen[]> = {
+const screensByTab = computed<Record<TabId, Screen[]>>(() => ({
   shogird: [
-    { id: 'auth', label: 'Avtorizatsiya' },
-    { id: 'otp', label: 'Tasdiqlash kodi' },
-    { id: 'cert', label: "Sertifikat so'rovi" },
-    { id: 'home', label: 'Bosh sahifa' },
-    { id: 'pay', label: "To'lov" }
+    { id: 'auth', label: t('phoneUi.screenAuth') },
+    { id: 'otp', label: t('phoneUi.screenOtp') },
+    { id: 'cert', label: t('phoneUi.screenCert') },
+    { id: 'home', label: t('phoneUi.screenHome') },
+    { id: 'pay', label: t('phoneUi.screenPay') }
   ],
   ustoz: [
-    { id: 'ustoz-home', label: 'Bosh sahifa (Ustoz)' },
-    { id: 'ustoz-confirm', label: "Buyurtmani tasdiqlash" },
-    { id: 'ustoz-cert', label: 'Sertifikat ko\'rib chiqish' }
+    { id: 'ustoz-home', label: t('phoneUi.screenMentorHome') },
+    { id: 'ustoz-confirm', label: t('phoneUi.screenMentorConfirm') },
+    { id: 'ustoz-cert', label: t('phoneUi.screenMentorCert') }
   ]
-}
+}))
 
 const activeTab = ref<TabId>('shogird')
-const screens = computed(() => screensByTab[activeTab.value])
+const screens = computed(() => screensByTab.value[activeTab.value])
 const activeIndex = ref(0)
 
 // Slot'lar (5 ta) — fan ko'rinishi uchun
